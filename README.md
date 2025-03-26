@@ -2,7 +2,7 @@
 
 **GoOutside** is a modular data engineering project that collects, processes, analyzes, and visualizes real-time weather, air quality, and pollen data. Ideal for generating insights or forecasts about when it's best to go outside.
 
----
+
 ## 📊 Key Features
 
 - Automated data ingestion from public APIs (weather, air quality, pollen)
@@ -13,7 +13,7 @@
 - **Orchestrated with Airflow**
 - Interactive dashboard built with **Streamlit**
 
----
+
 
 ## ⚙️ Tech Stack
 
@@ -28,4 +28,3 @@
 | FastAPI       | API for ingestion & inference    |
 | scikit-learn / XGBoost | ML training pipeline   |
 
----
