@@ -1,2 +1,15 @@
-# Ignore macOS system files
+# macOS system files
 .DS_Store
+
+# Airflow
+airflow/logs/
+airflow/plugins/
+airflow/__pycache__/
+airflow/postgres-db-volume/
+
+# Python
+__pycache__/
+*.pyc
+
+# Optional: Credentials
+fastapi/credentials/
