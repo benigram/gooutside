@@ -1,0 +1,232 @@
+[2025-04-10T22:01:28.780+0000] {local_task_job_runner.py:123} INFO - ::group::Pre task execution logs
+[2025-04-10T22:01:28.794+0000] {taskinstance.py:2614} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: weather_forecast_ingestion_dag.ingest scheduled__2025-04-10T21:00:00+00:00 [queued]>
+[2025-04-10T22:01:28.799+0000] {taskinstance.py:2614} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: weather_forecast_ingestion_dag.ingest scheduled__2025-04-10T21:00:00+00:00 [queued]>
+[2025-04-10T22:01:28.800+0000] {taskinstance.py:2867} INFO - Starting attempt 1 of 2
+[2025-04-10T22:01:28.808+0000] {taskinstance.py:2890} INFO - Executing <Task(_PythonDecoratedOperator): ingest> on 2025-04-10 21:00:00+00:00
+[2025-04-10T22:01:28.812+0000] {warnings.py:112} WARNING - /home/***/.local/lib/python3.12/site-packages/***/task/task_runner/standard_task_runner.py:70: DeprecationWarning: This process (pid=658) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  pid = os.fork()
+
+[2025-04-10T22:01:28.815+0000] {standard_task_runner.py:72} INFO - Started process 660 to run task
+[2025-04-10T22:01:28.814+0000] {standard_task_runner.py:104} INFO - Running: ['***', 'tasks', 'run', 'weather_forecast_ingestion_dag', 'ingest', 'scheduled__2025-04-10T21:00:00+00:00', '--job-id', '690', '--raw', '--subdir', 'DAGS_FOLDER/weather_forecast_ingestion_dag.py', '--cfg-path', '/tmp/tmpgusjzggi']
+[2025-04-10T22:01:28.816+0000] {standard_task_runner.py:105} INFO - Job 690: Subtask ingest
+[2025-04-10T22:01:28.873+0000] {task_command.py:467} INFO - Running <TaskInstance: weather_forecast_ingestion_dag.ingest scheduled__2025-04-10T21:00:00+00:00 [running]> on host 98acdd3c69ae
+[2025-04-10T22:01:28.958+0000] {taskinstance.py:3134} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='beni' AIRFLOW_CTX_DAG_ID='weather_forecast_ingestion_dag' AIRFLOW_CTX_TASK_ID='ingest' AIRFLOW_CTX_EXECUTION_DATE='2025-04-10T21:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2025-04-10T21:00:00+00:00'
+[2025-04-10T22:01:28.959+0000] {taskinstance.py:732} INFO - ::endgroup::
+[2025-04-10T22:01:28.963+0000] {weather_forecast_ingestion_dag.py:37} INFO - 🌤️ Fetching forecast from 2025-04-10 to 2025-04-18
+[2025-04-10T22:01:29.151+0000] {weather_forecast_ingestion_dag.py:53} INFO - 📦 Filtered 105 future forecast entries
+[2025-04-10T22:01:29.151+0000] {weather_forecast_ingestion_dag.py:56} INFO - 💾 Saving forecast for 2025-04-11T06:00:00+00:00
+[2025-04-10T22:01:29.565+0000] {logging_mixin.py:190} INFO - 🌤️ Saved forecast: gs://gooutside-raw/weather_forecast/bamberg/2025-04-11T0600.json
+[2025-04-10T22:01:29.566+0000] {weather_forecast_ingestion_dag.py:56} INFO - 💾 Saving forecast for 2025-04-11T07:00:00+00:00
+[2025-04-10T22:01:29.920+0000] {logging_mixin.py:190} INFO - 🌤️ Saved forecast: gs://gooutside-raw/weather_forecast/bamberg/2025-04-11T0700.json
+[2025-04-10T22:01:29.920+0000] {weather_forecast_ingestion_dag.py:56} INFO - 💾 Saving forecast for 2025-04-11T08:00:00+00:00
+[2025-04-10T22:01:30.238+0000] {logging_mixin.py:190} INFO - 🌤️ Saved forecast: gs://gooutside-raw/weather_forecast/bamberg/2025-04-11T0800.json
+[2025-04-10T22:01:30.239+0000] {weather_forecast_ingestion_dag.py:56} INFO - 💾 Saving forecast for 2025-04-11T09:00:00+00:00
+[2025-04-10T22:01:30.588+0000] {logging_mixin.py:190} INFO - 🌤️ Saved forecast: gs://gooutside-raw/weather_forecast/bamberg/2025-04-11T0900.json
+[2025-04-10T22:01:30.588+0000] {weather_forecast_ingestion_dag.py:56} INFO - 💾 Saving forecast for 2025-04-11T10:00:00+00:00
+[2025-04-10T22:01:30.932+0000] {logging_mixin.py:190} INFO - 🌤️ Saved forecast: gs://gooutside-raw/weather_forecast/bamberg/2025-04-11T1000.json
+[2025-04-10T22:01:30.933+0000] {weather_forecast_ingestion_dag.py:56} INFO - 💾 Saving forecast for 2025-04-11T11:00:00+00:00
+[2025-04-10T22:01:31.267+0000] {logging_mixin.py:190} INFO - 🌤️ Saved forecast: gs://gooutside-raw/weather_forecast/bamberg/2025-04-11T1100.json
+[2025-04-10T22:01:31.268+0000] {weather_forecast_ingestion_dag.py:56} INFO - 💾 Saving forecast for 2025-04-11T12:00:00+00:00
+[2025-04-10T22:01:31.604+0000] {logging_mixin.py:190} INFO - 🌤️ Saved forecast: gs://gooutside-raw/weather_forecast/bamberg/2025-04-11T1200.json
+[2025-04-10T22:01:31.605+0000] {weather_forecast_ingestion_dag.py:56} INFO - 💾 Saving forecast for 2025-04-11T13:00:00+00:00
+[2025-04-10T22:01:31.943+0000] {logging_mixin.py:190} INFO - 🌤️ Saved forecast: gs://gooutside-raw/weather_forecast/bamberg/2025-04-11T1300.json
+[2025-04-10T22:01:31.943+0000] {weather_forecast_ingestion_dag.py:56} INFO - 💾 Saving forecast for 2025-04-11T14:00:00+00:00
+[2025-04-10T22:01:32.283+0000] {logging_mixin.py:190} INFO - 🌤️ Saved forecast: gs://gooutside-raw/weather_forecast/bamberg/2025-04-11T1400.json
+[2025-04-10T22:01:32.283+0000] {weather_forecast_ingestion_dag.py:56} INFO - 💾 Saving forecast for 2025-04-11T15:00:00+00:00
+[2025-04-10T22:01:32.607+0000] {logging_mixin.py:190} INFO - 🌤️ Saved forecast: gs://gooutside-raw/weather_forecast/bamberg/2025-04-11T1500.json
+[2025-04-10T22:01:32.608+0000] {weather_forecast_ingestion_dag.py:56} INFO - 💾 Saving forecast for 2025-04-11T16:00:00+00:00
+[2025-04-10T22:01:32.990+0000] {logging_mixin.py:190} INFO - 🌤️ Saved forecast: gs://gooutside-raw/weather_forecast/bamberg/2025-04-11T1600.json
+[2025-04-10T22:01:32.991+0000] {weather_forecast_ingestion_dag.py:56} INFO - 💾 Saving forecast for 2025-04-11T17:00:00+00:00
+[2025-04-10T22:01:33.331+0000] {logging_mixin.py:190} INFO - 🌤️ Saved forecast: gs://gooutside-raw/weather_forecast/bamberg/2025-04-11T1700.json
+[2025-04-10T22:01:33.331+0000] {weather_forecast_ingestion_dag.py:56} INFO - 💾 Saving forecast for 2025-04-11T18:00:00+00:00
+[2025-04-10T22:01:33.648+0000] {logging_mixin.py:190} INFO - 🌤️ Saved forecast: gs://gooutside-raw/weather_forecast/bamberg/2025-04-11T1800.json
+[2025-04-10T22:01:33.649+0000] {weather_forecast_ingestion_dag.py:56} INFO - 💾 Saving forecast for 2025-04-11T19:00:00+00:00
+[2025-04-10T22:01:34.022+0000] {logging_mixin.py:190} INFO - 🌤️ Saved forecast: gs://gooutside-raw/weather_forecast/bamberg/2025-04-11T1900.json
+[2025-04-10T22:01:34.023+0000] {weather_forecast_ingestion_dag.py:56} INFO - 💾 Saving forecast for 2025-04-11T20:00:00+00:00
+[2025-04-10T22:01:34.369+0000] {logging_mixin.py:190} INFO - 🌤️ Saved forecast: gs://gooutside-raw/weather_forecast/bamberg/2025-04-11T2000.json
+[2025-04-10T22:01:34.369+0000] {weather_forecast_ingestion_dag.py:56} INFO - 💾 Saving forecast for 2025-04-12T06:00:00+00:00
+[2025-04-10T22:01:34.731+0000] {logging_mixin.py:190} INFO - 🌤️ Saved forecast: gs://gooutside-raw/weather_forecast/bamberg/2025-04-12T0600.json
+[2025-04-10T22:01:34.732+0000] {weather_forecast_ingestion_dag.py:56} INFO - 💾 Saving forecast for 2025-04-12T07:00:00+00:00
+[2025-04-10T22:01:35.162+0000] {logging_mixin.py:190} INFO - 🌤️ Saved forecast: gs://gooutside-raw/weather_forecast/bamberg/2025-04-12T0700.json
+[2025-04-10T22:01:35.163+0000] {weather_forecast_ingestion_dag.py:56} INFO - 💾 Saving forecast for 2025-04-12T08:00:00+00:00
+[2025-04-10T22:01:36.180+0000] {logging_mixin.py:190} INFO - 🌤️ Saved forecast: gs://gooutside-raw/weather_forecast/bamberg/2025-04-12T0800.json
+[2025-04-10T22:01:36.181+0000] {weather_forecast_ingestion_dag.py:56} INFO - 💾 Saving forecast for 2025-04-12T09:00:00+00:00
+[2025-04-10T22:01:36.964+0000] {logging_mixin.py:190} INFO - 🌤️ Saved forecast: gs://gooutside-raw/weather_forecast/bamberg/2025-04-12T0900.json
+[2025-04-10T22:01:36.965+0000] {weather_forecast_ingestion_dag.py:56} INFO - 💾 Saving forecast for 2025-04-12T10:00:00+00:00
+[2025-04-10T22:01:37.873+0000] {logging_mixin.py:190} INFO - 🌤️ Saved forecast: gs://gooutside-raw/weather_forecast/bamberg/2025-04-12T1000.json
+[2025-04-10T22:01:37.875+0000] {weather_forecast_ingestion_dag.py:56} INFO - 💾 Saving forecast for 2025-04-12T11:00:00+00:00
+[2025-04-10T22:01:38.606+0000] {logging_mixin.py:190} INFO - 🌤️ Saved forecast: gs://gooutside-raw/weather_forecast/bamberg/2025-04-12T1100.json
+[2025-04-10T22:01:38.607+0000] {weather_forecast_ingestion_dag.py:56} INFO - 💾 Saving forecast for 2025-04-12T12:00:00+00:00
+[2025-04-10T22:01:39.486+0000] {logging_mixin.py:190} INFO - 🌤️ Saved forecast: gs://gooutside-raw/weather_forecast/bamberg/2025-04-12T1200.json
+[2025-04-10T22:01:39.487+0000] {weather_forecast_ingestion_dag.py:56} INFO - 💾 Saving forecast for 2025-04-12T13:00:00+00:00
+[2025-04-10T22:01:39.958+0000] {logging_mixin.py:190} INFO - 🌤️ Saved forecast: gs://gooutside-raw/weather_forecast/bamberg/2025-04-12T1300.json
+[2025-04-10T22:01:39.959+0000] {weather_forecast_ingestion_dag.py:56} INFO - 💾 Saving forecast for 2025-04-12T14:00:00+00:00
+[2025-04-10T22:01:40.291+0000] {logging_mixin.py:190} INFO - 🌤️ Saved forecast: gs://gooutside-raw/weather_forecast/bamberg/2025-04-12T1400.json
+[2025-04-10T22:01:40.292+0000] {weather_forecast_ingestion_dag.py:56} INFO - 💾 Saving forecast for 2025-04-12T15:00:00+00:00
+[2025-04-10T22:01:40.632+0000] {logging_mixin.py:190} INFO - 🌤️ Saved forecast: gs://gooutside-raw/weather_forecast/bamberg/2025-04-12T1500.json
+[2025-04-10T22:01:40.633+0000] {weather_forecast_ingestion_dag.py:56} INFO - 💾 Saving forecast for 2025-04-12T16:00:00+00:00
+[2025-04-10T22:01:40.987+0000] {logging_mixin.py:190} INFO - 🌤️ Saved forecast: gs://gooutside-raw/weather_forecast/bamberg/2025-04-12T1600.json
+[2025-04-10T22:01:40.988+0000] {weather_forecast_ingestion_dag.py:56} INFO - 💾 Saving forecast for 2025-04-12T17:00:00+00:00
+[2025-04-10T22:01:41.359+0000] {logging_mixin.py:190} INFO - 🌤️ Saved forecast: gs://gooutside-raw/weather_forecast/bamberg/2025-04-12T1700.json
+[2025-04-10T22:01:41.360+0000] {weather_forecast_ingestion_dag.py:56} INFO - 💾 Saving forecast for 2025-04-12T18:00:00+00:00
+[2025-04-10T22:01:41.720+0000] {logging_mixin.py:190} INFO - 🌤️ Saved forecast: gs://gooutside-raw/weather_forecast/bamberg/2025-04-12T1800.json
+[2025-04-10T22:01:41.721+0000] {weather_forecast_ingestion_dag.py:56} INFO - 💾 Saving forecast for 2025-04-12T19:00:00+00:00
+[2025-04-10T22:01:42.066+0000] {logging_mixin.py:190} INFO - 🌤️ Saved forecast: gs://gooutside-raw/weather_forecast/bamberg/2025-04-12T1900.json
+[2025-04-10T22:01:42.066+0000] {weather_forecast_ingestion_dag.py:56} INFO - 💾 Saving forecast for 2025-04-12T20:00:00+00:00
+[2025-04-10T22:01:42.396+0000] {logging_mixin.py:190} INFO - 🌤️ Saved forecast: gs://gooutside-raw/weather_forecast/bamberg/2025-04-12T2000.json
+[2025-04-10T22:01:42.397+0000] {weather_forecast_ingestion_dag.py:56} INFO - 💾 Saving forecast for 2025-04-13T06:00:00+00:00
+[2025-04-10T22:01:42.753+0000] {logging_mixin.py:190} INFO - 🌤️ Saved forecast: gs://gooutside-raw/weather_forecast/bamberg/2025-04-13T0600.json
+[2025-04-10T22:01:42.754+0000] {weather_forecast_ingestion_dag.py:56} INFO - 💾 Saving forecast for 2025-04-13T07:00:00+00:00
+[2025-04-10T22:01:43.114+0000] {logging_mixin.py:190} INFO - 🌤️ Saved forecast: gs://gooutside-raw/weather_forecast/bamberg/2025-04-13T0700.json
+[2025-04-10T22:01:43.116+0000] {weather_forecast_ingestion_dag.py:56} INFO - 💾 Saving forecast for 2025-04-13T08:00:00+00:00
+[2025-04-10T22:01:43.476+0000] {logging_mixin.py:190} INFO - 🌤️ Saved forecast: gs://gooutside-raw/weather_forecast/bamberg/2025-04-13T0800.json
+[2025-04-10T22:01:43.477+0000] {weather_forecast_ingestion_dag.py:56} INFO - 💾 Saving forecast for 2025-04-13T09:00:00+00:00
+[2025-04-10T22:01:43.830+0000] {logging_mixin.py:190} INFO - 🌤️ Saved forecast: gs://gooutside-raw/weather_forecast/bamberg/2025-04-13T0900.json
+[2025-04-10T22:01:43.831+0000] {weather_forecast_ingestion_dag.py:56} INFO - 💾 Saving forecast for 2025-04-13T10:00:00+00:00
+[2025-04-10T22:01:44.193+0000] {logging_mixin.py:190} INFO - 🌤️ Saved forecast: gs://gooutside-raw/weather_forecast/bamberg/2025-04-13T1000.json
+[2025-04-10T22:01:44.194+0000] {weather_forecast_ingestion_dag.py:56} INFO - 💾 Saving forecast for 2025-04-13T11:00:00+00:00
+[2025-04-10T22:01:44.783+0000] {logging_mixin.py:190} INFO - 🌤️ Saved forecast: gs://gooutside-raw/weather_forecast/bamberg/2025-04-13T1100.json
+[2025-04-10T22:01:44.800+0000] {weather_forecast_ingestion_dag.py:56} INFO - 💾 Saving forecast for 2025-04-13T12:00:00+00:00
+[2025-04-10T22:01:45.208+0000] {logging_mixin.py:190} INFO - 🌤️ Saved forecast: gs://gooutside-raw/weather_forecast/bamberg/2025-04-13T1200.json
+[2025-04-10T22:01:45.209+0000] {weather_forecast_ingestion_dag.py:56} INFO - 💾 Saving forecast for 2025-04-13T13:00:00+00:00
+[2025-04-10T22:01:45.623+0000] {logging_mixin.py:190} INFO - 🌤️ Saved forecast: gs://gooutside-raw/weather_forecast/bamberg/2025-04-13T1300.json
+[2025-04-10T22:01:45.624+0000] {weather_forecast_ingestion_dag.py:56} INFO - 💾 Saving forecast for 2025-04-13T14:00:00+00:00
+[2025-04-10T22:01:45.946+0000] {logging_mixin.py:190} INFO - 🌤️ Saved forecast: gs://gooutside-raw/weather_forecast/bamberg/2025-04-13T1400.json
+[2025-04-10T22:01:45.948+0000] {weather_forecast_ingestion_dag.py:56} INFO - 💾 Saving forecast for 2025-04-13T15:00:00+00:00
+[2025-04-10T22:01:46.308+0000] {logging_mixin.py:190} INFO - 🌤️ Saved forecast: gs://gooutside-raw/weather_forecast/bamberg/2025-04-13T1500.json
+[2025-04-10T22:01:46.309+0000] {weather_forecast_ingestion_dag.py:56} INFO - 💾 Saving forecast for 2025-04-13T16:00:00+00:00
+[2025-04-10T22:01:46.675+0000] {logging_mixin.py:190} INFO - 🌤️ Saved forecast: gs://gooutside-raw/weather_forecast/bamberg/2025-04-13T1600.json
+[2025-04-10T22:01:46.676+0000] {weather_forecast_ingestion_dag.py:56} INFO - 💾 Saving forecast for 2025-04-13T17:00:00+00:00
+[2025-04-10T22:01:47.002+0000] {logging_mixin.py:190} INFO - 🌤️ Saved forecast: gs://gooutside-raw/weather_forecast/bamberg/2025-04-13T1700.json
+[2025-04-10T22:01:47.004+0000] {weather_forecast_ingestion_dag.py:56} INFO - 💾 Saving forecast for 2025-04-13T18:00:00+00:00
+[2025-04-10T22:01:47.371+0000] {logging_mixin.py:190} INFO - 🌤️ Saved forecast: gs://gooutside-raw/weather_forecast/bamberg/2025-04-13T1800.json
+[2025-04-10T22:01:47.373+0000] {weather_forecast_ingestion_dag.py:56} INFO - 💾 Saving forecast for 2025-04-13T19:00:00+00:00
+[2025-04-10T22:01:47.733+0000] {logging_mixin.py:190} INFO - 🌤️ Saved forecast: gs://gooutside-raw/weather_forecast/bamberg/2025-04-13T1900.json
+[2025-04-10T22:01:47.733+0000] {weather_forecast_ingestion_dag.py:56} INFO - 💾 Saving forecast for 2025-04-13T20:00:00+00:00
+[2025-04-10T22:01:48.068+0000] {logging_mixin.py:190} INFO - 🌤️ Saved forecast: gs://gooutside-raw/weather_forecast/bamberg/2025-04-13T2000.json
+[2025-04-10T22:01:48.068+0000] {weather_forecast_ingestion_dag.py:56} INFO - 💾 Saving forecast for 2025-04-14T06:00:00+00:00
+[2025-04-10T22:01:48.407+0000] {logging_mixin.py:190} INFO - 🌤️ Saved forecast: gs://gooutside-raw/weather_forecast/bamberg/2025-04-14T0600.json
+[2025-04-10T22:01:48.408+0000] {weather_forecast_ingestion_dag.py:56} INFO - 💾 Saving forecast for 2025-04-14T07:00:00+00:00
+[2025-04-10T22:01:48.757+0000] {logging_mixin.py:190} INFO - 🌤️ Saved forecast: gs://gooutside-raw/weather_forecast/bamberg/2025-04-14T0700.json
+[2025-04-10T22:01:48.759+0000] {weather_forecast_ingestion_dag.py:56} INFO - 💾 Saving forecast for 2025-04-14T08:00:00+00:00
+[2025-04-10T22:01:49.123+0000] {logging_mixin.py:190} INFO - 🌤️ Saved forecast: gs://gooutside-raw/weather_forecast/bamberg/2025-04-14T0800.json
+[2025-04-10T22:01:49.123+0000] {weather_forecast_ingestion_dag.py:56} INFO - 💾 Saving forecast for 2025-04-14T09:00:00+00:00
+[2025-04-10T22:01:49.488+0000] {logging_mixin.py:190} INFO - 🌤️ Saved forecast: gs://gooutside-raw/weather_forecast/bamberg/2025-04-14T0900.json
+[2025-04-10T22:01:49.489+0000] {weather_forecast_ingestion_dag.py:56} INFO - 💾 Saving forecast for 2025-04-14T10:00:00+00:00
+[2025-04-10T22:01:49.820+0000] {logging_mixin.py:190} INFO - 🌤️ Saved forecast: gs://gooutside-raw/weather_forecast/bamberg/2025-04-14T1000.json
+[2025-04-10T22:01:49.821+0000] {weather_forecast_ingestion_dag.py:56} INFO - 💾 Saving forecast for 2025-04-14T11:00:00+00:00
+[2025-04-10T22:01:50.192+0000] {logging_mixin.py:190} INFO - 🌤️ Saved forecast: gs://gooutside-raw/weather_forecast/bamberg/2025-04-14T1100.json
+[2025-04-10T22:01:50.193+0000] {weather_forecast_ingestion_dag.py:56} INFO - 💾 Saving forecast for 2025-04-14T12:00:00+00:00
+[2025-04-10T22:01:50.513+0000] {logging_mixin.py:190} INFO - 🌤️ Saved forecast: gs://gooutside-raw/weather_forecast/bamberg/2025-04-14T1200.json
+[2025-04-10T22:01:50.514+0000] {weather_forecast_ingestion_dag.py:56} INFO - 💾 Saving forecast for 2025-04-14T13:00:00+00:00
+[2025-04-10T22:01:50.883+0000] {logging_mixin.py:190} INFO - 🌤️ Saved forecast: gs://gooutside-raw/weather_forecast/bamberg/2025-04-14T1300.json
+[2025-04-10T22:01:50.885+0000] {weather_forecast_ingestion_dag.py:56} INFO - 💾 Saving forecast for 2025-04-14T14:00:00+00:00
+[2025-04-10T22:01:51.241+0000] {logging_mixin.py:190} INFO - 🌤️ Saved forecast: gs://gooutside-raw/weather_forecast/bamberg/2025-04-14T1400.json
+[2025-04-10T22:01:51.241+0000] {weather_forecast_ingestion_dag.py:56} INFO - 💾 Saving forecast for 2025-04-14T15:00:00+00:00
+[2025-04-10T22:01:51.582+0000] {logging_mixin.py:190} INFO - 🌤️ Saved forecast: gs://gooutside-raw/weather_forecast/bamberg/2025-04-14T1500.json
+[2025-04-10T22:01:51.583+0000] {weather_forecast_ingestion_dag.py:56} INFO - 💾 Saving forecast for 2025-04-14T16:00:00+00:00
+[2025-04-10T22:01:51.970+0000] {logging_mixin.py:190} INFO - 🌤️ Saved forecast: gs://gooutside-raw/weather_forecast/bamberg/2025-04-14T1600.json
+[2025-04-10T22:01:51.970+0000] {weather_forecast_ingestion_dag.py:56} INFO - 💾 Saving forecast for 2025-04-14T17:00:00+00:00
+[2025-04-10T22:01:52.298+0000] {logging_mixin.py:190} INFO - 🌤️ Saved forecast: gs://gooutside-raw/weather_forecast/bamberg/2025-04-14T1700.json
+[2025-04-10T22:01:52.299+0000] {weather_forecast_ingestion_dag.py:56} INFO - 💾 Saving forecast for 2025-04-14T18:00:00+00:00
+[2025-04-10T22:01:52.660+0000] {logging_mixin.py:190} INFO - 🌤️ Saved forecast: gs://gooutside-raw/weather_forecast/bamberg/2025-04-14T1800.json
+[2025-04-10T22:01:52.660+0000] {weather_forecast_ingestion_dag.py:56} INFO - 💾 Saving forecast for 2025-04-14T19:00:00+00:00
+[2025-04-10T22:01:53.010+0000] {logging_mixin.py:190} INFO - 🌤️ Saved forecast: gs://gooutside-raw/weather_forecast/bamberg/2025-04-14T1900.json
+[2025-04-10T22:01:53.011+0000] {weather_forecast_ingestion_dag.py:56} INFO - 💾 Saving forecast for 2025-04-14T20:00:00+00:00
+[2025-04-10T22:01:53.368+0000] {logging_mixin.py:190} INFO - 🌤️ Saved forecast: gs://gooutside-raw/weather_forecast/bamberg/2025-04-14T2000.json
+[2025-04-10T22:01:53.369+0000] {weather_forecast_ingestion_dag.py:56} INFO - 💾 Saving forecast for 2025-04-15T06:00:00+00:00
+[2025-04-10T22:01:53.712+0000] {logging_mixin.py:190} INFO - 🌤️ Saved forecast: gs://gooutside-raw/weather_forecast/bamberg/2025-04-15T0600.json
+[2025-04-10T22:01:53.713+0000] {weather_forecast_ingestion_dag.py:56} INFO - 💾 Saving forecast for 2025-04-15T07:00:00+00:00
+[2025-04-10T22:01:54.070+0000] {logging_mixin.py:190} INFO - 🌤️ Saved forecast: gs://gooutside-raw/weather_forecast/bamberg/2025-04-15T0700.json
+[2025-04-10T22:01:54.070+0000] {weather_forecast_ingestion_dag.py:56} INFO - 💾 Saving forecast for 2025-04-15T08:00:00+00:00
+[2025-04-10T22:01:54.413+0000] {logging_mixin.py:190} INFO - 🌤️ Saved forecast: gs://gooutside-raw/weather_forecast/bamberg/2025-04-15T0800.json
+[2025-04-10T22:01:54.415+0000] {weather_forecast_ingestion_dag.py:56} INFO - 💾 Saving forecast for 2025-04-15T09:00:00+00:00
+[2025-04-10T22:01:54.767+0000] {logging_mixin.py:190} INFO - 🌤️ Saved forecast: gs://gooutside-raw/weather_forecast/bamberg/2025-04-15T0900.json
+[2025-04-10T22:01:54.768+0000] {weather_forecast_ingestion_dag.py:56} INFO - 💾 Saving forecast for 2025-04-15T10:00:00+00:00
+[2025-04-10T22:01:55.134+0000] {logging_mixin.py:190} INFO - 🌤️ Saved forecast: gs://gooutside-raw/weather_forecast/bamberg/2025-04-15T1000.json
+[2025-04-10T22:01:55.135+0000] {weather_forecast_ingestion_dag.py:56} INFO - 💾 Saving forecast for 2025-04-15T11:00:00+00:00
+[2025-04-10T22:01:55.502+0000] {logging_mixin.py:190} INFO - 🌤️ Saved forecast: gs://gooutside-raw/weather_forecast/bamberg/2025-04-15T1100.json
+[2025-04-10T22:01:55.503+0000] {weather_forecast_ingestion_dag.py:56} INFO - 💾 Saving forecast for 2025-04-15T12:00:00+00:00
+[2025-04-10T22:01:55.851+0000] {logging_mixin.py:190} INFO - 🌤️ Saved forecast: gs://gooutside-raw/weather_forecast/bamberg/2025-04-15T1200.json
+[2025-04-10T22:01:55.852+0000] {weather_forecast_ingestion_dag.py:56} INFO - 💾 Saving forecast for 2025-04-15T13:00:00+00:00
+[2025-04-10T22:01:56.177+0000] {logging_mixin.py:190} INFO - 🌤️ Saved forecast: gs://gooutside-raw/weather_forecast/bamberg/2025-04-15T1300.json
+[2025-04-10T22:01:56.178+0000] {weather_forecast_ingestion_dag.py:56} INFO - 💾 Saving forecast for 2025-04-15T14:00:00+00:00
+[2025-04-10T22:01:56.581+0000] {logging_mixin.py:190} INFO - 🌤️ Saved forecast: gs://gooutside-raw/weather_forecast/bamberg/2025-04-15T1400.json
+[2025-04-10T22:01:56.581+0000] {weather_forecast_ingestion_dag.py:56} INFO - 💾 Saving forecast for 2025-04-15T15:00:00+00:00
+[2025-04-10T22:01:56.929+0000] {logging_mixin.py:190} INFO - 🌤️ Saved forecast: gs://gooutside-raw/weather_forecast/bamberg/2025-04-15T1500.json
+[2025-04-10T22:01:56.929+0000] {weather_forecast_ingestion_dag.py:56} INFO - 💾 Saving forecast for 2025-04-15T16:00:00+00:00
+[2025-04-10T22:01:57.269+0000] {logging_mixin.py:190} INFO - 🌤️ Saved forecast: gs://gooutside-raw/weather_forecast/bamberg/2025-04-15T1600.json
+[2025-04-10T22:01:57.270+0000] {weather_forecast_ingestion_dag.py:56} INFO - 💾 Saving forecast for 2025-04-15T17:00:00+00:00
+[2025-04-10T22:01:57.693+0000] {logging_mixin.py:190} INFO - 🌤️ Saved forecast: gs://gooutside-raw/weather_forecast/bamberg/2025-04-15T1700.json
+[2025-04-10T22:01:57.693+0000] {weather_forecast_ingestion_dag.py:56} INFO - 💾 Saving forecast for 2025-04-15T18:00:00+00:00
+[2025-04-10T22:01:58.030+0000] {logging_mixin.py:190} INFO - 🌤️ Saved forecast: gs://gooutside-raw/weather_forecast/bamberg/2025-04-15T1800.json
+[2025-04-10T22:01:58.031+0000] {weather_forecast_ingestion_dag.py:56} INFO - 💾 Saving forecast for 2025-04-15T19:00:00+00:00
+[2025-04-10T22:01:58.387+0000] {logging_mixin.py:190} INFO - 🌤️ Saved forecast: gs://gooutside-raw/weather_forecast/bamberg/2025-04-15T1900.json
+[2025-04-10T22:01:58.388+0000] {weather_forecast_ingestion_dag.py:56} INFO - 💾 Saving forecast for 2025-04-15T20:00:00+00:00
+[2025-04-10T22:01:58.751+0000] {logging_mixin.py:190} INFO - 🌤️ Saved forecast: gs://gooutside-raw/weather_forecast/bamberg/2025-04-15T2000.json
+[2025-04-10T22:01:58.753+0000] {weather_forecast_ingestion_dag.py:56} INFO - 💾 Saving forecast for 2025-04-16T06:00:00+00:00
+[2025-04-10T22:01:59.116+0000] {logging_mixin.py:190} INFO - 🌤️ Saved forecast: gs://gooutside-raw/weather_forecast/bamberg/2025-04-16T0600.json
+[2025-04-10T22:01:59.116+0000] {weather_forecast_ingestion_dag.py:56} INFO - 💾 Saving forecast for 2025-04-16T07:00:00+00:00
+[2025-04-10T22:01:59.497+0000] {logging_mixin.py:190} INFO - 🌤️ Saved forecast: gs://gooutside-raw/weather_forecast/bamberg/2025-04-16T0700.json
+[2025-04-10T22:01:59.499+0000] {weather_forecast_ingestion_dag.py:56} INFO - 💾 Saving forecast for 2025-04-16T08:00:00+00:00
+[2025-04-10T22:01:59.807+0000] {logging_mixin.py:190} INFO - 🌤️ Saved forecast: gs://gooutside-raw/weather_forecast/bamberg/2025-04-16T0800.json
+[2025-04-10T22:01:59.808+0000] {weather_forecast_ingestion_dag.py:56} INFO - 💾 Saving forecast for 2025-04-16T09:00:00+00:00
+[2025-04-10T22:02:00.162+0000] {logging_mixin.py:190} INFO - 🌤️ Saved forecast: gs://gooutside-raw/weather_forecast/bamberg/2025-04-16T0900.json
+[2025-04-10T22:02:00.163+0000] {weather_forecast_ingestion_dag.py:56} INFO - 💾 Saving forecast for 2025-04-16T10:00:00+00:00
+[2025-04-10T22:02:00.520+0000] {logging_mixin.py:190} INFO - 🌤️ Saved forecast: gs://gooutside-raw/weather_forecast/bamberg/2025-04-16T1000.json
+[2025-04-10T22:02:00.521+0000] {weather_forecast_ingestion_dag.py:56} INFO - 💾 Saving forecast for 2025-04-16T11:00:00+00:00
+[2025-04-10T22:02:00.885+0000] {logging_mixin.py:190} INFO - 🌤️ Saved forecast: gs://gooutside-raw/weather_forecast/bamberg/2025-04-16T1100.json
+[2025-04-10T22:02:00.886+0000] {weather_forecast_ingestion_dag.py:56} INFO - 💾 Saving forecast for 2025-04-16T12:00:00+00:00
+[2025-04-10T22:02:01.248+0000] {logging_mixin.py:190} INFO - 🌤️ Saved forecast: gs://gooutside-raw/weather_forecast/bamberg/2025-04-16T1200.json
+[2025-04-10T22:02:01.249+0000] {weather_forecast_ingestion_dag.py:56} INFO - 💾 Saving forecast for 2025-04-16T13:00:00+00:00
+[2025-04-10T22:02:01.589+0000] {logging_mixin.py:190} INFO - 🌤️ Saved forecast: gs://gooutside-raw/weather_forecast/bamberg/2025-04-16T1300.json
+[2025-04-10T22:02:01.590+0000] {weather_forecast_ingestion_dag.py:56} INFO - 💾 Saving forecast for 2025-04-16T14:00:00+00:00
+[2025-04-10T22:02:01.926+0000] {logging_mixin.py:190} INFO - 🌤️ Saved forecast: gs://gooutside-raw/weather_forecast/bamberg/2025-04-16T1400.json
+[2025-04-10T22:02:01.928+0000] {weather_forecast_ingestion_dag.py:56} INFO - 💾 Saving forecast for 2025-04-16T15:00:00+00:00
+[2025-04-10T22:02:02.308+0000] {logging_mixin.py:190} INFO - 🌤️ Saved forecast: gs://gooutside-raw/weather_forecast/bamberg/2025-04-16T1500.json
+[2025-04-10T22:02:02.309+0000] {weather_forecast_ingestion_dag.py:56} INFO - 💾 Saving forecast for 2025-04-16T16:00:00+00:00
+[2025-04-10T22:02:02.670+0000] {logging_mixin.py:190} INFO - 🌤️ Saved forecast: gs://gooutside-raw/weather_forecast/bamberg/2025-04-16T1600.json
+[2025-04-10T22:02:02.671+0000] {weather_forecast_ingestion_dag.py:56} INFO - 💾 Saving forecast for 2025-04-16T17:00:00+00:00
+[2025-04-10T22:02:03.032+0000] {logging_mixin.py:190} INFO - 🌤️ Saved forecast: gs://gooutside-raw/weather_forecast/bamberg/2025-04-16T1700.json
+[2025-04-10T22:02:03.033+0000] {weather_forecast_ingestion_dag.py:56} INFO - 💾 Saving forecast for 2025-04-16T18:00:00+00:00
+[2025-04-10T22:02:03.398+0000] {logging_mixin.py:190} INFO - 🌤️ Saved forecast: gs://gooutside-raw/weather_forecast/bamberg/2025-04-16T1800.json
+[2025-04-10T22:02:03.398+0000] {weather_forecast_ingestion_dag.py:56} INFO - 💾 Saving forecast for 2025-04-16T19:00:00+00:00
+[2025-04-10T22:02:03.731+0000] {logging_mixin.py:190} INFO - 🌤️ Saved forecast: gs://gooutside-raw/weather_forecast/bamberg/2025-04-16T1900.json
+[2025-04-10T22:02:03.732+0000] {weather_forecast_ingestion_dag.py:56} INFO - 💾 Saving forecast for 2025-04-16T20:00:00+00:00
+[2025-04-10T22:02:04.088+0000] {logging_mixin.py:190} INFO - 🌤️ Saved forecast: gs://gooutside-raw/weather_forecast/bamberg/2025-04-16T2000.json
+[2025-04-10T22:02:04.090+0000] {weather_forecast_ingestion_dag.py:56} INFO - 💾 Saving forecast for 2025-04-17T06:00:00+00:00
+[2025-04-10T22:02:04.463+0000] {logging_mixin.py:190} INFO - 🌤️ Saved forecast: gs://gooutside-raw/weather_forecast/bamberg/2025-04-17T0600.json
+[2025-04-10T22:02:04.464+0000] {weather_forecast_ingestion_dag.py:56} INFO - 💾 Saving forecast for 2025-04-17T07:00:00+00:00
+[2025-04-10T22:02:04.836+0000] {logging_mixin.py:190} INFO - 🌤️ Saved forecast: gs://gooutside-raw/weather_forecast/bamberg/2025-04-17T0700.json
+[2025-04-10T22:02:04.837+0000] {weather_forecast_ingestion_dag.py:56} INFO - 💾 Saving forecast for 2025-04-17T08:00:00+00:00
+[2025-04-10T22:02:05.188+0000] {logging_mixin.py:190} INFO - 🌤️ Saved forecast: gs://gooutside-raw/weather_forecast/bamberg/2025-04-17T0800.json
+[2025-04-10T22:02:05.189+0000] {weather_forecast_ingestion_dag.py:56} INFO - 💾 Saving forecast for 2025-04-17T09:00:00+00:00
+[2025-04-10T22:02:05.532+0000] {logging_mixin.py:190} INFO - 🌤️ Saved forecast: gs://gooutside-raw/weather_forecast/bamberg/2025-04-17T0900.json
+[2025-04-10T22:02:05.533+0000] {weather_forecast_ingestion_dag.py:56} INFO - 💾 Saving forecast for 2025-04-17T10:00:00+00:00
+[2025-04-10T22:02:05.861+0000] {logging_mixin.py:190} INFO - 🌤️ Saved forecast: gs://gooutside-raw/weather_forecast/bamberg/2025-04-17T1000.json
+[2025-04-10T22:02:05.863+0000] {weather_forecast_ingestion_dag.py:56} INFO - 💾 Saving forecast for 2025-04-17T11:00:00+00:00
+[2025-04-10T22:02:06.238+0000] {logging_mixin.py:190} INFO - 🌤️ Saved forecast: gs://gooutside-raw/weather_forecast/bamberg/2025-04-17T1100.json
+[2025-04-10T22:02:06.240+0000] {weather_forecast_ingestion_dag.py:56} INFO - 💾 Saving forecast for 2025-04-17T12:00:00+00:00
+[2025-04-10T22:02:06.610+0000] {logging_mixin.py:190} INFO - 🌤️ Saved forecast: gs://gooutside-raw/weather_forecast/bamberg/2025-04-17T1200.json
+[2025-04-10T22:02:06.611+0000] {weather_forecast_ingestion_dag.py:56} INFO - 💾 Saving forecast for 2025-04-17T13:00:00+00:00
+[2025-04-10T22:02:06.975+0000] {logging_mixin.py:190} INFO - 🌤️ Saved forecast: gs://gooutside-raw/weather_forecast/bamberg/2025-04-17T1300.json
+[2025-04-10T22:02:06.977+0000] {weather_forecast_ingestion_dag.py:56} INFO - 💾 Saving forecast for 2025-04-17T14:00:00+00:00
+[2025-04-10T22:02:07.327+0000] {logging_mixin.py:190} INFO - 🌤️ Saved forecast: gs://gooutside-raw/weather_forecast/bamberg/2025-04-17T1400.json
+[2025-04-10T22:02:07.328+0000] {weather_forecast_ingestion_dag.py:56} INFO - 💾 Saving forecast for 2025-04-17T15:00:00+00:00
+[2025-04-10T22:02:07.666+0000] {logging_mixin.py:190} INFO - 🌤️ Saved forecast: gs://gooutside-raw/weather_forecast/bamberg/2025-04-17T1500.json
+[2025-04-10T22:02:07.667+0000] {weather_forecast_ingestion_dag.py:56} INFO - 💾 Saving forecast for 2025-04-17T16:00:00+00:00
+[2025-04-10T22:02:08.011+0000] {logging_mixin.py:190} INFO - 🌤️ Saved forecast: gs://gooutside-raw/weather_forecast/bamberg/2025-04-17T1600.json
+[2025-04-10T22:02:08.013+0000] {weather_forecast_ingestion_dag.py:56} INFO - 💾 Saving forecast for 2025-04-17T17:00:00+00:00
+[2025-04-10T22:02:08.389+0000] {logging_mixin.py:190} INFO - 🌤️ Saved forecast: gs://gooutside-raw/weather_forecast/bamberg/2025-04-17T1700.json
+[2025-04-10T22:02:08.391+0000] {weather_forecast_ingestion_dag.py:56} INFO - 💾 Saving forecast for 2025-04-17T18:00:00+00:00
+[2025-04-10T22:02:08.758+0000] {logging_mixin.py:190} INFO - 🌤️ Saved forecast: gs://gooutside-raw/weather_forecast/bamberg/2025-04-17T1800.json
+[2025-04-10T22:02:08.759+0000] {weather_forecast_ingestion_dag.py:56} INFO - 💾 Saving forecast for 2025-04-17T19:00:00+00:00
+[2025-04-10T22:02:09.109+0000] {logging_mixin.py:190} INFO - 🌤️ Saved forecast: gs://gooutside-raw/weather_forecast/bamberg/2025-04-17T1900.json
+[2025-04-10T22:02:09.111+0000] {weather_forecast_ingestion_dag.py:56} INFO - 💾 Saving forecast for 2025-04-17T20:00:00+00:00
+[2025-04-10T22:02:09.471+0000] {logging_mixin.py:190} INFO - 🌤️ Saved forecast: gs://gooutside-raw/weather_forecast/bamberg/2025-04-17T2000.json
+[2025-04-10T22:02:09.473+0000] {python.py:240} INFO - Done. Returned value was: None
+[2025-04-10T22:02:09.498+0000] {taskinstance.py:341} INFO - ::group::Post task execution logs
+[2025-04-10T22:02:09.499+0000] {taskinstance.py:353} INFO - Marking task as SUCCESS. dag_id=weather_forecast_ingestion_dag, task_id=ingest, run_id=scheduled__2025-04-10T21:00:00+00:00, execution_date=20250410T210000, start_date=20250410T220128, end_date=20250410T220209
+[2025-04-10T22:02:09.539+0000] {local_task_job_runner.py:266} INFO - Task exited with return code 0
+[2025-04-10T22:02:09.571+0000] {taskinstance.py:3901} INFO - 1 downstream tasks scheduled from follow-on schedule check
+[2025-04-10T22:02:09.572+0000] {local_task_job_runner.py:245} INFO - ::endgroup::

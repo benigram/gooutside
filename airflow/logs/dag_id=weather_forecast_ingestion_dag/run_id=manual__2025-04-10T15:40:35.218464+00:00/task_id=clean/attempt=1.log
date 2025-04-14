@@ -1,0 +1,135 @@
+[2025-04-10T15:41:23.512+0000] {local_task_job_runner.py:123} INFO - ::group::Pre task execution logs
+[2025-04-10T15:41:23.525+0000] {taskinstance.py:2614} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: weather_forecast_ingestion_dag.clean manual__2025-04-10T15:40:35.218464+00:00 [queued]>
+[2025-04-10T15:41:23.529+0000] {taskinstance.py:2614} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: weather_forecast_ingestion_dag.clean manual__2025-04-10T15:40:35.218464+00:00 [queued]>
+[2025-04-10T15:41:23.529+0000] {taskinstance.py:2867} INFO - Starting attempt 1 of 2
+[2025-04-10T15:41:23.535+0000] {taskinstance.py:2890} INFO - Executing <Task(_PythonDecoratedOperator): clean> on 2025-04-10 15:40:35.218464+00:00
+[2025-04-10T15:41:23.538+0000] {warnings.py:112} WARNING - /home/***/.local/lib/python3.12/site-packages/***/task/task_runner/standard_task_runner.py:70: DeprecationWarning: This process (pid=561) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  pid = os.fork()
+
+[2025-04-10T15:41:23.539+0000] {standard_task_runner.py:72} INFO - Started process 562 to run task
+[2025-04-10T15:41:23.541+0000] {standard_task_runner.py:104} INFO - Running: ['***', 'tasks', 'run', 'weather_forecast_ingestion_dag', 'clean', 'manual__2025-04-10T15:40:35.218464+00:00', '--job-id', '657', '--raw', '--subdir', 'DAGS_FOLDER/weather_forecast_ingestion_dag.py', '--cfg-path', '/tmp/tmpy9w3aklm']
+[2025-04-10T15:41:23.543+0000] {standard_task_runner.py:105} INFO - Job 657: Subtask clean
+[2025-04-10T15:41:23.574+0000] {task_command.py:467} INFO - Running <TaskInstance: weather_forecast_ingestion_dag.clean manual__2025-04-10T15:40:35.218464+00:00 [running]> on host 98acdd3c69ae
+[2025-04-10T15:41:23.619+0000] {taskinstance.py:3134} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='beni' AIRFLOW_CTX_DAG_ID='weather_forecast_ingestion_dag' AIRFLOW_CTX_TASK_ID='clean' AIRFLOW_CTX_EXECUTION_DATE='2025-04-10T15:40:35.218464+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2025-04-10T15:40:35.218464+00:00'
+[2025-04-10T15:41:23.620+0000] {taskinstance.py:732} INFO - ::endgroup::
+[2025-04-10T15:41:24.092+0000] {logging_mixin.py:190} INFO - ⚠️ Could not parse/delete weather_forecast/bamberg/2025-04-10T1100.json: can't compare offset-naive and offset-aware datetimes
+[2025-04-10T15:41:24.093+0000] {logging_mixin.py:190} INFO - ⚠️ Could not parse/delete weather_forecast/bamberg/2025-04-10T1200.json: can't compare offset-naive and offset-aware datetimes
+[2025-04-10T15:41:24.094+0000] {logging_mixin.py:190} INFO - ⚠️ Could not parse/delete weather_forecast/bamberg/2025-04-10T1300.json: can't compare offset-naive and offset-aware datetimes
+[2025-04-10T15:41:24.094+0000] {logging_mixin.py:190} INFO - ⚠️ Could not parse/delete weather_forecast/bamberg/2025-04-10T1400.json: can't compare offset-naive and offset-aware datetimes
+[2025-04-10T15:41:24.095+0000] {logging_mixin.py:190} INFO - ⚠️ Could not parse/delete weather_forecast/bamberg/2025-04-10T1500.json: can't compare offset-naive and offset-aware datetimes
+[2025-04-10T15:41:24.095+0000] {logging_mixin.py:190} INFO - ⚠️ Could not parse/delete weather_forecast/bamberg/2025-04-10T1600.json: can't compare offset-naive and offset-aware datetimes
+[2025-04-10T15:41:24.096+0000] {logging_mixin.py:190} INFO - ⚠️ Could not parse/delete weather_forecast/bamberg/2025-04-10T1700.json: can't compare offset-naive and offset-aware datetimes
+[2025-04-10T15:41:24.096+0000] {logging_mixin.py:190} INFO - ⚠️ Could not parse/delete weather_forecast/bamberg/2025-04-10T1800.json: can't compare offset-naive and offset-aware datetimes
+[2025-04-10T15:41:24.097+0000] {logging_mixin.py:190} INFO - ⚠️ Could not parse/delete weather_forecast/bamberg/2025-04-10T1900.json: can't compare offset-naive and offset-aware datetimes
+[2025-04-10T15:41:24.097+0000] {logging_mixin.py:190} INFO - ⚠️ Could not parse/delete weather_forecast/bamberg/2025-04-10T2000.json: can't compare offset-naive and offset-aware datetimes
+[2025-04-10T15:41:24.098+0000] {logging_mixin.py:190} INFO - ⚠️ Could not parse/delete weather_forecast/bamberg/2025-04-11T0600.json: can't compare offset-naive and offset-aware datetimes
+[2025-04-10T15:41:24.098+0000] {logging_mixin.py:190} INFO - ⚠️ Could not parse/delete weather_forecast/bamberg/2025-04-11T0700.json: can't compare offset-naive and offset-aware datetimes
+[2025-04-10T15:41:24.098+0000] {logging_mixin.py:190} INFO - ⚠️ Could not parse/delete weather_forecast/bamberg/2025-04-11T0800.json: can't compare offset-naive and offset-aware datetimes
+[2025-04-10T15:41:24.099+0000] {logging_mixin.py:190} INFO - ⚠️ Could not parse/delete weather_forecast/bamberg/2025-04-11T0900.json: can't compare offset-naive and offset-aware datetimes
+[2025-04-10T15:41:24.099+0000] {logging_mixin.py:190} INFO - ⚠️ Could not parse/delete weather_forecast/bamberg/2025-04-11T1000.json: can't compare offset-naive and offset-aware datetimes
+[2025-04-10T15:41:24.100+0000] {logging_mixin.py:190} INFO - ⚠️ Could not parse/delete weather_forecast/bamberg/2025-04-11T1100.json: can't compare offset-naive and offset-aware datetimes
+[2025-04-10T15:41:24.100+0000] {logging_mixin.py:190} INFO - ⚠️ Could not parse/delete weather_forecast/bamberg/2025-04-11T1200.json: can't compare offset-naive and offset-aware datetimes
+[2025-04-10T15:41:24.100+0000] {logging_mixin.py:190} INFO - ⚠️ Could not parse/delete weather_forecast/bamberg/2025-04-11T1300.json: can't compare offset-naive and offset-aware datetimes
+[2025-04-10T15:41:24.101+0000] {logging_mixin.py:190} INFO - ⚠️ Could not parse/delete weather_forecast/bamberg/2025-04-11T1400.json: can't compare offset-naive and offset-aware datetimes
+[2025-04-10T15:41:24.101+0000] {logging_mixin.py:190} INFO - ⚠️ Could not parse/delete weather_forecast/bamberg/2025-04-11T1500.json: can't compare offset-naive and offset-aware datetimes
+[2025-04-10T15:41:24.101+0000] {logging_mixin.py:190} INFO - ⚠️ Could not parse/delete weather_forecast/bamberg/2025-04-11T1600.json: can't compare offset-naive and offset-aware datetimes
+[2025-04-10T15:41:24.102+0000] {logging_mixin.py:190} INFO - ⚠️ Could not parse/delete weather_forecast/bamberg/2025-04-11T1700.json: can't compare offset-naive and offset-aware datetimes
+[2025-04-10T15:41:24.102+0000] {logging_mixin.py:190} INFO - ⚠️ Could not parse/delete weather_forecast/bamberg/2025-04-11T1800.json: can't compare offset-naive and offset-aware datetimes
+[2025-04-10T15:41:24.103+0000] {logging_mixin.py:190} INFO - ⚠️ Could not parse/delete weather_forecast/bamberg/2025-04-11T1900.json: can't compare offset-naive and offset-aware datetimes
+[2025-04-10T15:41:24.103+0000] {logging_mixin.py:190} INFO - ⚠️ Could not parse/delete weather_forecast/bamberg/2025-04-11T2000.json: can't compare offset-naive and offset-aware datetimes
+[2025-04-10T15:41:24.103+0000] {logging_mixin.py:190} INFO - ⚠️ Could not parse/delete weather_forecast/bamberg/2025-04-12T0600.json: can't compare offset-naive and offset-aware datetimes
+[2025-04-10T15:41:24.104+0000] {logging_mixin.py:190} INFO - ⚠️ Could not parse/delete weather_forecast/bamberg/2025-04-12T0700.json: can't compare offset-naive and offset-aware datetimes
+[2025-04-10T15:41:24.104+0000] {logging_mixin.py:190} INFO - ⚠️ Could not parse/delete weather_forecast/bamberg/2025-04-12T0800.json: can't compare offset-naive and offset-aware datetimes
+[2025-04-10T15:41:24.104+0000] {logging_mixin.py:190} INFO - ⚠️ Could not parse/delete weather_forecast/bamberg/2025-04-12T0900.json: can't compare offset-naive and offset-aware datetimes
+[2025-04-10T15:41:24.105+0000] {logging_mixin.py:190} INFO - ⚠️ Could not parse/delete weather_forecast/bamberg/2025-04-12T1000.json: can't compare offset-naive and offset-aware datetimes
+[2025-04-10T15:41:24.105+0000] {logging_mixin.py:190} INFO - ⚠️ Could not parse/delete weather_forecast/bamberg/2025-04-12T1100.json: can't compare offset-naive and offset-aware datetimes
+[2025-04-10T15:41:24.105+0000] {logging_mixin.py:190} INFO - ⚠️ Could not parse/delete weather_forecast/bamberg/2025-04-12T1200.json: can't compare offset-naive and offset-aware datetimes
+[2025-04-10T15:41:24.106+0000] {logging_mixin.py:190} INFO - ⚠️ Could not parse/delete weather_forecast/bamberg/2025-04-12T1300.json: can't compare offset-naive and offset-aware datetimes
+[2025-04-10T15:41:24.106+0000] {logging_mixin.py:190} INFO - ⚠️ Could not parse/delete weather_forecast/bamberg/2025-04-12T1400.json: can't compare offset-naive and offset-aware datetimes
+[2025-04-10T15:41:24.106+0000] {logging_mixin.py:190} INFO - ⚠️ Could not parse/delete weather_forecast/bamberg/2025-04-12T1500.json: can't compare offset-naive and offset-aware datetimes
+[2025-04-10T15:41:24.107+0000] {logging_mixin.py:190} INFO - ⚠️ Could not parse/delete weather_forecast/bamberg/2025-04-12T1600.json: can't compare offset-naive and offset-aware datetimes
+[2025-04-10T15:41:24.107+0000] {logging_mixin.py:190} INFO - ⚠️ Could not parse/delete weather_forecast/bamberg/2025-04-12T1700.json: can't compare offset-naive and offset-aware datetimes
+[2025-04-10T15:41:24.107+0000] {logging_mixin.py:190} INFO - ⚠️ Could not parse/delete weather_forecast/bamberg/2025-04-12T1800.json: can't compare offset-naive and offset-aware datetimes
+[2025-04-10T15:41:24.108+0000] {logging_mixin.py:190} INFO - ⚠️ Could not parse/delete weather_forecast/bamberg/2025-04-12T1900.json: can't compare offset-naive and offset-aware datetimes
+[2025-04-10T15:41:24.108+0000] {logging_mixin.py:190} INFO - ⚠️ Could not parse/delete weather_forecast/bamberg/2025-04-12T2000.json: can't compare offset-naive and offset-aware datetimes
+[2025-04-10T15:41:24.108+0000] {logging_mixin.py:190} INFO - ⚠️ Could not parse/delete weather_forecast/bamberg/2025-04-13T0600.json: can't compare offset-naive and offset-aware datetimes
+[2025-04-10T15:41:24.108+0000] {logging_mixin.py:190} INFO - ⚠️ Could not parse/delete weather_forecast/bamberg/2025-04-13T0700.json: can't compare offset-naive and offset-aware datetimes
+[2025-04-10T15:41:24.109+0000] {logging_mixin.py:190} INFO - ⚠️ Could not parse/delete weather_forecast/bamberg/2025-04-13T0800.json: can't compare offset-naive and offset-aware datetimes
+[2025-04-10T15:41:24.109+0000] {logging_mixin.py:190} INFO - ⚠️ Could not parse/delete weather_forecast/bamberg/2025-04-13T0900.json: can't compare offset-naive and offset-aware datetimes
+[2025-04-10T15:41:24.109+0000] {logging_mixin.py:190} INFO - ⚠️ Could not parse/delete weather_forecast/bamberg/2025-04-13T1000.json: can't compare offset-naive and offset-aware datetimes
+[2025-04-10T15:41:24.110+0000] {logging_mixin.py:190} INFO - ⚠️ Could not parse/delete weather_forecast/bamberg/2025-04-13T1100.json: can't compare offset-naive and offset-aware datetimes
+[2025-04-10T15:41:24.110+0000] {logging_mixin.py:190} INFO - ⚠️ Could not parse/delete weather_forecast/bamberg/2025-04-13T1200.json: can't compare offset-naive and offset-aware datetimes
+[2025-04-10T15:41:24.110+0000] {logging_mixin.py:190} INFO - ⚠️ Could not parse/delete weather_forecast/bamberg/2025-04-13T1300.json: can't compare offset-naive and offset-aware datetimes
+[2025-04-10T15:41:24.111+0000] {logging_mixin.py:190} INFO - ⚠️ Could not parse/delete weather_forecast/bamberg/2025-04-13T1400.json: can't compare offset-naive and offset-aware datetimes
+[2025-04-10T15:41:24.111+0000] {logging_mixin.py:190} INFO - ⚠️ Could not parse/delete weather_forecast/bamberg/2025-04-13T1500.json: can't compare offset-naive and offset-aware datetimes
+[2025-04-10T15:41:24.111+0000] {logging_mixin.py:190} INFO - ⚠️ Could not parse/delete weather_forecast/bamberg/2025-04-13T1600.json: can't compare offset-naive and offset-aware datetimes
+[2025-04-10T15:41:24.111+0000] {logging_mixin.py:190} INFO - ⚠️ Could not parse/delete weather_forecast/bamberg/2025-04-13T1700.json: can't compare offset-naive and offset-aware datetimes
+[2025-04-10T15:41:24.112+0000] {logging_mixin.py:190} INFO - ⚠️ Could not parse/delete weather_forecast/bamberg/2025-04-13T1800.json: can't compare offset-naive and offset-aware datetimes
+[2025-04-10T15:41:24.112+0000] {logging_mixin.py:190} INFO - ⚠️ Could not parse/delete weather_forecast/bamberg/2025-04-13T1900.json: can't compare offset-naive and offset-aware datetimes
+[2025-04-10T15:41:24.112+0000] {logging_mixin.py:190} INFO - ⚠️ Could not parse/delete weather_forecast/bamberg/2025-04-13T2000.json: can't compare offset-naive and offset-aware datetimes
+[2025-04-10T15:41:24.113+0000] {logging_mixin.py:190} INFO - ⚠️ Could not parse/delete weather_forecast/bamberg/2025-04-14T0600.json: can't compare offset-naive and offset-aware datetimes
+[2025-04-10T15:41:24.113+0000] {logging_mixin.py:190} INFO - ⚠️ Could not parse/delete weather_forecast/bamberg/2025-04-14T0700.json: can't compare offset-naive and offset-aware datetimes
+[2025-04-10T15:41:24.113+0000] {logging_mixin.py:190} INFO - ⚠️ Could not parse/delete weather_forecast/bamberg/2025-04-14T0800.json: can't compare offset-naive and offset-aware datetimes
+[2025-04-10T15:41:24.114+0000] {logging_mixin.py:190} INFO - ⚠️ Could not parse/delete weather_forecast/bamberg/2025-04-14T0900.json: can't compare offset-naive and offset-aware datetimes
+[2025-04-10T15:41:24.114+0000] {logging_mixin.py:190} INFO - ⚠️ Could not parse/delete weather_forecast/bamberg/2025-04-14T1000.json: can't compare offset-naive and offset-aware datetimes
+[2025-04-10T15:41:24.114+0000] {logging_mixin.py:190} INFO - ⚠️ Could not parse/delete weather_forecast/bamberg/2025-04-14T1100.json: can't compare offset-naive and offset-aware datetimes
+[2025-04-10T15:41:24.114+0000] {logging_mixin.py:190} INFO - ⚠️ Could not parse/delete weather_forecast/bamberg/2025-04-14T1200.json: can't compare offset-naive and offset-aware datetimes
+[2025-04-10T15:41:24.114+0000] {logging_mixin.py:190} INFO - ⚠️ Could not parse/delete weather_forecast/bamberg/2025-04-14T1300.json: can't compare offset-naive and offset-aware datetimes
+[2025-04-10T15:41:24.115+0000] {logging_mixin.py:190} INFO - ⚠️ Could not parse/delete weather_forecast/bamberg/2025-04-14T1400.json: can't compare offset-naive and offset-aware datetimes
+[2025-04-10T15:41:24.115+0000] {logging_mixin.py:190} INFO - ⚠️ Could not parse/delete weather_forecast/bamberg/2025-04-14T1500.json: can't compare offset-naive and offset-aware datetimes
+[2025-04-10T15:41:24.115+0000] {logging_mixin.py:190} INFO - ⚠️ Could not parse/delete weather_forecast/bamberg/2025-04-14T1600.json: can't compare offset-naive and offset-aware datetimes
+[2025-04-10T15:41:24.115+0000] {logging_mixin.py:190} INFO - ⚠️ Could not parse/delete weather_forecast/bamberg/2025-04-14T1700.json: can't compare offset-naive and offset-aware datetimes
+[2025-04-10T15:41:24.116+0000] {logging_mixin.py:190} INFO - ⚠️ Could not parse/delete weather_forecast/bamberg/2025-04-14T1800.json: can't compare offset-naive and offset-aware datetimes
+[2025-04-10T15:41:24.116+0000] {logging_mixin.py:190} INFO - ⚠️ Could not parse/delete weather_forecast/bamberg/2025-04-14T1900.json: can't compare offset-naive and offset-aware datetimes
+[2025-04-10T15:41:24.116+0000] {logging_mixin.py:190} INFO - ⚠️ Could not parse/delete weather_forecast/bamberg/2025-04-14T2000.json: can't compare offset-naive and offset-aware datetimes
+[2025-04-10T15:41:24.116+0000] {logging_mixin.py:190} INFO - ⚠️ Could not parse/delete weather_forecast/bamberg/2025-04-15T0600.json: can't compare offset-naive and offset-aware datetimes
+[2025-04-10T15:41:24.117+0000] {logging_mixin.py:190} INFO - ⚠️ Could not parse/delete weather_forecast/bamberg/2025-04-15T0700.json: can't compare offset-naive and offset-aware datetimes
+[2025-04-10T15:41:24.117+0000] {logging_mixin.py:190} INFO - ⚠️ Could not parse/delete weather_forecast/bamberg/2025-04-15T0800.json: can't compare offset-naive and offset-aware datetimes
+[2025-04-10T15:41:24.117+0000] {logging_mixin.py:190} INFO - ⚠️ Could not parse/delete weather_forecast/bamberg/2025-04-15T0900.json: can't compare offset-naive and offset-aware datetimes
+[2025-04-10T15:41:24.118+0000] {logging_mixin.py:190} INFO - ⚠️ Could not parse/delete weather_forecast/bamberg/2025-04-15T1000.json: can't compare offset-naive and offset-aware datetimes
+[2025-04-10T15:41:24.118+0000] {logging_mixin.py:190} INFO - ⚠️ Could not parse/delete weather_forecast/bamberg/2025-04-15T1100.json: can't compare offset-naive and offset-aware datetimes
+[2025-04-10T15:41:24.118+0000] {logging_mixin.py:190} INFO - ⚠️ Could not parse/delete weather_forecast/bamberg/2025-04-15T1200.json: can't compare offset-naive and offset-aware datetimes
+[2025-04-10T15:41:24.118+0000] {logging_mixin.py:190} INFO - ⚠️ Could not parse/delete weather_forecast/bamberg/2025-04-15T1300.json: can't compare offset-naive and offset-aware datetimes
+[2025-04-10T15:41:24.119+0000] {logging_mixin.py:190} INFO - ⚠️ Could not parse/delete weather_forecast/bamberg/2025-04-15T1400.json: can't compare offset-naive and offset-aware datetimes
+[2025-04-10T15:41:24.119+0000] {logging_mixin.py:190} INFO - ⚠️ Could not parse/delete weather_forecast/bamberg/2025-04-15T1500.json: can't compare offset-naive and offset-aware datetimes
+[2025-04-10T15:41:24.119+0000] {logging_mixin.py:190} INFO - ⚠️ Could not parse/delete weather_forecast/bamberg/2025-04-15T1600.json: can't compare offset-naive and offset-aware datetimes
+[2025-04-10T15:41:24.119+0000] {logging_mixin.py:190} INFO - ⚠️ Could not parse/delete weather_forecast/bamberg/2025-04-15T1700.json: can't compare offset-naive and offset-aware datetimes
+[2025-04-10T15:41:24.120+0000] {logging_mixin.py:190} INFO - ⚠️ Could not parse/delete weather_forecast/bamberg/2025-04-15T1800.json: can't compare offset-naive and offset-aware datetimes
+[2025-04-10T15:41:24.120+0000] {logging_mixin.py:190} INFO - ⚠️ Could not parse/delete weather_forecast/bamberg/2025-04-15T1900.json: can't compare offset-naive and offset-aware datetimes
+[2025-04-10T15:41:24.120+0000] {logging_mixin.py:190} INFO - ⚠️ Could not parse/delete weather_forecast/bamberg/2025-04-15T2000.json: can't compare offset-naive and offset-aware datetimes
+[2025-04-10T15:41:24.120+0000] {logging_mixin.py:190} INFO - ⚠️ Could not parse/delete weather_forecast/bamberg/2025-04-16T0600.json: can't compare offset-naive and offset-aware datetimes
+[2025-04-10T15:41:24.121+0000] {logging_mixin.py:190} INFO - ⚠️ Could not parse/delete weather_forecast/bamberg/2025-04-16T0700.json: can't compare offset-naive and offset-aware datetimes
+[2025-04-10T15:41:24.121+0000] {logging_mixin.py:190} INFO - ⚠️ Could not parse/delete weather_forecast/bamberg/2025-04-16T0800.json: can't compare offset-naive and offset-aware datetimes
+[2025-04-10T15:41:24.121+0000] {logging_mixin.py:190} INFO - ⚠️ Could not parse/delete weather_forecast/bamberg/2025-04-16T0900.json: can't compare offset-naive and offset-aware datetimes
+[2025-04-10T15:41:24.121+0000] {logging_mixin.py:190} INFO - ⚠️ Could not parse/delete weather_forecast/bamberg/2025-04-16T1000.json: can't compare offset-naive and offset-aware datetimes
+[2025-04-10T15:41:24.122+0000] {logging_mixin.py:190} INFO - ⚠️ Could not parse/delete weather_forecast/bamberg/2025-04-16T1100.json: can't compare offset-naive and offset-aware datetimes
+[2025-04-10T15:41:24.122+0000] {logging_mixin.py:190} INFO - ⚠️ Could not parse/delete weather_forecast/bamberg/2025-04-16T1200.json: can't compare offset-naive and offset-aware datetimes
+[2025-04-10T15:41:24.122+0000] {logging_mixin.py:190} INFO - ⚠️ Could not parse/delete weather_forecast/bamberg/2025-04-16T1300.json: can't compare offset-naive and offset-aware datetimes
+[2025-04-10T15:41:24.122+0000] {logging_mixin.py:190} INFO - ⚠️ Could not parse/delete weather_forecast/bamberg/2025-04-16T1400.json: can't compare offset-naive and offset-aware datetimes
+[2025-04-10T15:41:24.123+0000] {logging_mixin.py:190} INFO - ⚠️ Could not parse/delete weather_forecast/bamberg/2025-04-16T1500.json: can't compare offset-naive and offset-aware datetimes
+[2025-04-10T15:41:24.123+0000] {logging_mixin.py:190} INFO - ⚠️ Could not parse/delete weather_forecast/bamberg/2025-04-16T1600.json: can't compare offset-naive and offset-aware datetimes
+[2025-04-10T15:41:24.123+0000] {logging_mixin.py:190} INFO - ⚠️ Could not parse/delete weather_forecast/bamberg/2025-04-16T1700.json: can't compare offset-naive and offset-aware datetimes
+[2025-04-10T15:41:24.124+0000] {logging_mixin.py:190} INFO - ⚠️ Could not parse/delete weather_forecast/bamberg/2025-04-16T1800.json: can't compare offset-naive and offset-aware datetimes
+[2025-04-10T15:41:24.124+0000] {logging_mixin.py:190} INFO - ⚠️ Could not parse/delete weather_forecast/bamberg/2025-04-16T1900.json: can't compare offset-naive and offset-aware datetimes
+[2025-04-10T15:41:24.124+0000] {logging_mixin.py:190} INFO - ⚠️ Could not parse/delete weather_forecast/bamberg/2025-04-16T2000.json: can't compare offset-naive and offset-aware datetimes
+[2025-04-10T15:41:24.124+0000] {logging_mixin.py:190} INFO - ⚠️ Could not parse/delete weather_forecast/bamberg/2025-04-17T0600.json: can't compare offset-naive and offset-aware datetimes
+[2025-04-10T15:41:24.125+0000] {logging_mixin.py:190} INFO - ⚠️ Could not parse/delete weather_forecast/bamberg/2025-04-17T0700.json: can't compare offset-naive and offset-aware datetimes
+[2025-04-10T15:41:24.125+0000] {logging_mixin.py:190} INFO - ⚠️ Could not parse/delete weather_forecast/bamberg/2025-04-17T0800.json: can't compare offset-naive and offset-aware datetimes
+[2025-04-10T15:41:24.125+0000] {logging_mixin.py:190} INFO - ⚠️ Could not parse/delete weather_forecast/bamberg/2025-04-17T0900.json: can't compare offset-naive and offset-aware datetimes
+[2025-04-10T15:41:24.125+0000] {logging_mixin.py:190} INFO - ⚠️ Could not parse/delete weather_forecast/bamberg/2025-04-17T1000.json: can't compare offset-naive and offset-aware datetimes
+[2025-04-10T15:41:24.125+0000] {logging_mixin.py:190} INFO - ⚠️ Could not parse/delete weather_forecast/bamberg/2025-04-17T1100.json: can't compare offset-naive and offset-aware datetimes
+[2025-04-10T15:41:24.126+0000] {logging_mixin.py:190} INFO - ⚠️ Could not parse/delete weather_forecast/bamberg/2025-04-17T1200.json: can't compare offset-naive and offset-aware datetimes
+[2025-04-10T15:41:24.126+0000] {logging_mixin.py:190} INFO - ⚠️ Could not parse/delete weather_forecast/bamberg/2025-04-17T1300.json: can't compare offset-naive and offset-aware datetimes
+[2025-04-10T15:41:24.126+0000] {logging_mixin.py:190} INFO - ⚠️ Could not parse/delete weather_forecast/bamberg/2025-04-17T1400.json: can't compare offset-naive and offset-aware datetimes
+[2025-04-10T15:41:24.126+0000] {logging_mixin.py:190} INFO - ⚠️ Could not parse/delete weather_forecast/bamberg/2025-04-17T1500.json: can't compare offset-naive and offset-aware datetimes
+[2025-04-10T15:41:24.127+0000] {logging_mixin.py:190} INFO - ⚠️ Could not parse/delete weather_forecast/bamberg/2025-04-17T1600.json: can't compare offset-naive and offset-aware datetimes
+[2025-04-10T15:41:24.127+0000] {logging_mixin.py:190} INFO - ⚠️ Could not parse/delete weather_forecast/bamberg/2025-04-17T1700.json: can't compare offset-naive and offset-aware datetimes
+[2025-04-10T15:41:24.127+0000] {logging_mixin.py:190} INFO - ⚠️ Could not parse/delete weather_forecast/bamberg/2025-04-17T1800.json: can't compare offset-naive and offset-aware datetimes
+[2025-04-10T15:41:24.127+0000] {logging_mixin.py:190} INFO - ⚠️ Could not parse/delete weather_forecast/bamberg/2025-04-17T1900.json: can't compare offset-naive and offset-aware datetimes
+[2025-04-10T15:41:24.127+0000] {logging_mixin.py:190} INFO - ⚠️ Could not parse/delete weather_forecast/bamberg/2025-04-17T2000.json: can't compare offset-naive and offset-aware datetimes
+[2025-04-10T15:41:24.128+0000] {python.py:240} INFO - Done. Returned value was: None
+[2025-04-10T15:41:24.140+0000] {taskinstance.py:341} INFO - ::group::Post task execution logs
+[2025-04-10T15:41:24.140+0000] {taskinstance.py:353} INFO - Marking task as SUCCESS. dag_id=weather_forecast_ingestion_dag, task_id=clean, run_id=manual__2025-04-10T15:40:35.218464+00:00, execution_date=20250410T154035, start_date=20250410T154123, end_date=20250410T154124
+[2025-04-10T15:41:24.201+0000] {local_task_job_runner.py:266} INFO - Task exited with return code 0
+[2025-04-10T15:41:24.216+0000] {taskinstance.py:3901} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2025-04-10T15:41:24.217+0000] {local_task_job_runner.py:245} INFO - ::endgroup::

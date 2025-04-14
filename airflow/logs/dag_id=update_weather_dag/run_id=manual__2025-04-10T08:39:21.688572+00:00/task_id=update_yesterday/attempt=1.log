@@ -1,0 +1,51 @@
+[2025-04-10T08:39:22.622+0000] {local_task_job_runner.py:123} INFO - ::group::Pre task execution logs
+[2025-04-10T08:39:22.635+0000] {taskinstance.py:2614} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: update_weather_dag.update_yesterday manual__2025-04-10T08:39:21.688572+00:00 [queued]>
+[2025-04-10T08:39:22.639+0000] {taskinstance.py:2614} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: update_weather_dag.update_yesterday manual__2025-04-10T08:39:21.688572+00:00 [queued]>
+[2025-04-10T08:39:22.639+0000] {taskinstance.py:2867} INFO - Starting attempt 1 of 2
+[2025-04-10T08:39:22.645+0000] {taskinstance.py:2890} INFO - Executing <Task(_PythonDecoratedOperator): update_yesterday> on 2025-04-10 08:39:21.688572+00:00
+[2025-04-10T08:39:22.648+0000] {warnings.py:112} WARNING - /home/***/.local/lib/python3.12/site-packages/***/task/task_runner/standard_task_runner.py:70: DeprecationWarning: This process (pid=219) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  pid = os.fork()
+
+[2025-04-10T08:39:22.650+0000] {standard_task_runner.py:72} INFO - Started process 220 to run task
+[2025-04-10T08:39:22.650+0000] {standard_task_runner.py:104} INFO - Running: ['***', 'tasks', 'run', 'update_weather_dag', 'update_yesterday', 'manual__2025-04-10T08:39:21.688572+00:00', '--job-id', '545', '--raw', '--subdir', 'DAGS_FOLDER/update_weather_dag.py', '--cfg-path', '/tmp/tmpv8fhzl92']
+[2025-04-10T08:39:22.652+0000] {standard_task_runner.py:105} INFO - Job 545: Subtask update_yesterday
+[2025-04-10T08:39:22.684+0000] {task_command.py:467} INFO - Running <TaskInstance: update_weather_dag.update_yesterday manual__2025-04-10T08:39:21.688572+00:00 [running]> on host 98acdd3c69ae
+[2025-04-10T08:39:22.739+0000] {taskinstance.py:3134} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='beni' AIRFLOW_CTX_DAG_ID='update_weather_dag' AIRFLOW_CTX_TASK_ID='update_yesterday' AIRFLOW_CTX_EXECUTION_DATE='2025-04-10T08:39:21.688572+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2025-04-10T08:39:21.688572+00:00'
+[2025-04-10T08:39:22.739+0000] {taskinstance.py:732} INFO - ::endgroup::
+[2025-04-10T08:39:22.741+0000] {update_weather_dag.py:32} INFO - 🔁 Reloading historical weather data for 2025-04-09
+[2025-04-10T08:39:22.917+0000] {update_weather_dag.py:39} INFO - 💾 Overwriting entry for 2025-04-09T06:00:00+00:00
+[2025-04-10T08:39:23.363+0000] {logging_mixin.py:190} INFO - ✅ Saved: gs://gooutside-raw/weather/bamberg/2025-04-09T0600.json
+[2025-04-10T08:39:23.365+0000] {update_weather_dag.py:39} INFO - 💾 Overwriting entry for 2025-04-09T07:00:00+00:00
+[2025-04-10T08:39:23.759+0000] {logging_mixin.py:190} INFO - ✅ Saved: gs://gooutside-raw/weather/bamberg/2025-04-09T0700.json
+[2025-04-10T08:39:23.759+0000] {update_weather_dag.py:39} INFO - 💾 Overwriting entry for 2025-04-09T08:00:00+00:00
+[2025-04-10T08:39:24.143+0000] {logging_mixin.py:190} INFO - ✅ Saved: gs://gooutside-raw/weather/bamberg/2025-04-09T0800.json
+[2025-04-10T08:39:24.144+0000] {update_weather_dag.py:39} INFO - 💾 Overwriting entry for 2025-04-09T09:00:00+00:00
+[2025-04-10T08:39:24.537+0000] {logging_mixin.py:190} INFO - ✅ Saved: gs://gooutside-raw/weather/bamberg/2025-04-09T0900.json
+[2025-04-10T08:39:24.538+0000] {update_weather_dag.py:39} INFO - 💾 Overwriting entry for 2025-04-09T10:00:00+00:00
+[2025-04-10T08:39:24.955+0000] {logging_mixin.py:190} INFO - ✅ Saved: gs://gooutside-raw/weather/bamberg/2025-04-09T1000.json
+[2025-04-10T08:39:24.956+0000] {update_weather_dag.py:39} INFO - 💾 Overwriting entry for 2025-04-09T11:00:00+00:00
+[2025-04-10T08:39:25.333+0000] {logging_mixin.py:190} INFO - ✅ Saved: gs://gooutside-raw/weather/bamberg/2025-04-09T1100.json
+[2025-04-10T08:39:25.334+0000] {update_weather_dag.py:39} INFO - 💾 Overwriting entry for 2025-04-09T12:00:00+00:00
+[2025-04-10T08:39:25.738+0000] {logging_mixin.py:190} INFO - ✅ Saved: gs://gooutside-raw/weather/bamberg/2025-04-09T1200.json
+[2025-04-10T08:39:25.739+0000] {update_weather_dag.py:39} INFO - 💾 Overwriting entry for 2025-04-09T13:00:00+00:00
+[2025-04-10T08:39:26.151+0000] {logging_mixin.py:190} INFO - ✅ Saved: gs://gooutside-raw/weather/bamberg/2025-04-09T1300.json
+[2025-04-10T08:39:26.152+0000] {update_weather_dag.py:39} INFO - 💾 Overwriting entry for 2025-04-09T14:00:00+00:00
+[2025-04-10T08:39:26.534+0000] {logging_mixin.py:190} INFO - ✅ Saved: gs://gooutside-raw/weather/bamberg/2025-04-09T1400.json
+[2025-04-10T08:39:26.535+0000] {update_weather_dag.py:39} INFO - 💾 Overwriting entry for 2025-04-09T15:00:00+00:00
+[2025-04-10T08:39:26.947+0000] {logging_mixin.py:190} INFO - ✅ Saved: gs://gooutside-raw/weather/bamberg/2025-04-09T1500.json
+[2025-04-10T08:39:26.947+0000] {update_weather_dag.py:39} INFO - 💾 Overwriting entry for 2025-04-09T16:00:00+00:00
+[2025-04-10T08:39:27.317+0000] {logging_mixin.py:190} INFO - ✅ Saved: gs://gooutside-raw/weather/bamberg/2025-04-09T1600.json
+[2025-04-10T08:39:27.318+0000] {update_weather_dag.py:39} INFO - 💾 Overwriting entry for 2025-04-09T17:00:00+00:00
+[2025-04-10T08:39:27.706+0000] {logging_mixin.py:190} INFO - ✅ Saved: gs://gooutside-raw/weather/bamberg/2025-04-09T1700.json
+[2025-04-10T08:39:27.706+0000] {update_weather_dag.py:39} INFO - 💾 Overwriting entry for 2025-04-09T18:00:00+00:00
+[2025-04-10T08:39:28.043+0000] {logging_mixin.py:190} INFO - ✅ Saved: gs://gooutside-raw/weather/bamberg/2025-04-09T1800.json
+[2025-04-10T08:39:28.043+0000] {update_weather_dag.py:39} INFO - 💾 Overwriting entry for 2025-04-09T19:00:00+00:00
+[2025-04-10T08:39:28.415+0000] {logging_mixin.py:190} INFO - ✅ Saved: gs://gooutside-raw/weather/bamberg/2025-04-09T1900.json
+[2025-04-10T08:39:28.416+0000] {update_weather_dag.py:39} INFO - 💾 Overwriting entry for 2025-04-09T20:00:00+00:00
+[2025-04-10T08:39:28.786+0000] {logging_mixin.py:190} INFO - ✅ Saved: gs://gooutside-raw/weather/bamberg/2025-04-09T2000.json
+[2025-04-10T08:39:28.786+0000] {python.py:240} INFO - Done. Returned value was: None
+[2025-04-10T08:39:28.803+0000] {taskinstance.py:341} INFO - ::group::Post task execution logs
+[2025-04-10T08:39:28.804+0000] {taskinstance.py:353} INFO - Marking task as SUCCESS. dag_id=update_weather_dag, task_id=update_yesterday, run_id=manual__2025-04-10T08:39:21.688572+00:00, execution_date=20250410T083921, start_date=20250410T083922, end_date=20250410T083928
+[2025-04-10T08:39:28.844+0000] {local_task_job_runner.py:266} INFO - Task exited with return code 0
+[2025-04-10T08:39:28.858+0000] {taskinstance.py:3901} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2025-04-10T08:39:28.859+0000] {local_task_job_runner.py:245} INFO - ::endgroup::

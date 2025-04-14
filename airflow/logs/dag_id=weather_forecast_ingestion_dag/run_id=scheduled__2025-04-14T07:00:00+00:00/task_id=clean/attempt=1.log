@@ -1,0 +1,21 @@
+[2025-04-14T08:00:46.074+0000] {local_task_job_runner.py:123} INFO - ::group::Pre task execution logs
+[2025-04-14T08:00:46.086+0000] {taskinstance.py:2614} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: weather_forecast_ingestion_dag.clean scheduled__2025-04-14T07:00:00+00:00 [queued]>
+[2025-04-14T08:00:46.090+0000] {taskinstance.py:2614} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: weather_forecast_ingestion_dag.clean scheduled__2025-04-14T07:00:00+00:00 [queued]>
+[2025-04-14T08:00:46.090+0000] {taskinstance.py:2867} INFO - Starting attempt 1 of 2
+[2025-04-14T08:00:46.095+0000] {taskinstance.py:2890} INFO - Executing <Task(_PythonDecoratedOperator): clean> on 2025-04-14 07:00:00+00:00
+[2025-04-14T08:00:46.098+0000] {warnings.py:112} WARNING - /home/***/.local/lib/python3.12/site-packages/***/task/task_runner/standard_task_runner.py:70: DeprecationWarning: This process (pid=727) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  pid = os.fork()
+
+[2025-04-14T08:00:46.099+0000] {standard_task_runner.py:72} INFO - Started process 728 to run task
+[2025-04-14T08:00:46.100+0000] {standard_task_runner.py:104} INFO - Running: ['***', 'tasks', 'run', 'weather_forecast_ingestion_dag', 'clean', 'scheduled__2025-04-14T07:00:00+00:00', '--job-id', '992', '--raw', '--subdir', 'DAGS_FOLDER/weather_forecast_ingestion_dag.py', '--cfg-path', '/tmp/tmpwqwu811x']
+[2025-04-14T08:00:46.101+0000] {standard_task_runner.py:105} INFO - Job 992: Subtask clean
+[2025-04-14T08:00:46.128+0000] {task_command.py:467} INFO - Running <TaskInstance: weather_forecast_ingestion_dag.clean scheduled__2025-04-14T07:00:00+00:00 [running]> on host caedfbfc7792
+[2025-04-14T08:00:46.169+0000] {taskinstance.py:3134} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='beni' AIRFLOW_CTX_DAG_ID='weather_forecast_ingestion_dag' AIRFLOW_CTX_TASK_ID='clean' AIRFLOW_CTX_EXECUTION_DATE='2025-04-14T07:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2025-04-14T07:00:00+00:00'
+[2025-04-14T08:00:46.170+0000] {taskinstance.py:732} INFO - ::endgroup::
+[2025-04-14T08:00:46.544+0000] {logging_mixin.py:190} INFO - 🗑️ Deleting outdated forecast: weather_forecast/bamberg/2025-04-14T0800.json
+[2025-04-14T08:00:46.633+0000] {python.py:240} INFO - Done. Returned value was: None
+[2025-04-14T08:00:46.652+0000] {taskinstance.py:341} INFO - ::group::Post task execution logs
+[2025-04-14T08:00:46.652+0000] {taskinstance.py:353} INFO - Marking task as SUCCESS. dag_id=weather_forecast_ingestion_dag, task_id=clean, run_id=scheduled__2025-04-14T07:00:00+00:00, execution_date=20250414T070000, start_date=20250414T080046, end_date=20250414T080046
+[2025-04-14T08:00:46.705+0000] {local_task_job_runner.py:266} INFO - Task exited with return code 0
+[2025-04-14T08:00:46.720+0000] {taskinstance.py:3901} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2025-04-14T08:00:46.721+0000] {local_task_job_runner.py:245} INFO - ::endgroup::

@@ -1,0 +1,179 @@
+version: '3.8'
+
+# 🔁 Shared configuration for all Airflow services (webserver, scheduler, worker, etc.)
+x-airflow-common:
+  &airflow-common
+  image: ${AIRFLOW_IMAGE_NAME:-apache/airflow:2.10.5}  # Use default Airflow image (version configurable via .env)
+  environment:
+    &airflow-common-env
+    AIRFLOW__CORE__EXECUTOR: CeleryExecutor  # Use CeleryExecutor for distributed task execution
+    AIRFLOW__CORE__PARALLELISM: 32
+    AIRFLOW__CORE__DAG_CONCURRENCY: 16
+    AIRFLOW__CORE__MAX_ACTIVE_RUNS_PER_DAG: 5
+    AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@postgres/airflow  # PostgreSQL DB connection
+    AIRFLOW__CELERY__RESULT_BACKEND: db+postgresql://airflow:airflow@postgres/airflow  # Store task results in PostgreSQL
+    AIRFLOW__CELERY__BROKER_URL: redis://:@redis:6379/0  # Redis as message broker for Celery
+    AIRFLOW__CORE__FERNET_KEY: ''  # Used for encrypting sensitive data
+    AIRFLOW__CORE__DAGS_ARE_PAUSED_AT_CREATION: 'true'  # DAGs are paused when created
+    AIRFLOW__CORE__LOAD_EXAMPLES: 'false'  # Do not load example DAGs
+    AIRFLOW__API__AUTH_BACKENDS: 'airflow.api.auth.backend.basic_auth,airflow.api.auth.backend.session'  # API authentication
+    AIRFLOW__SCHEDULER__ENABLE_HEALTH_CHECK: 'true'
+    _PIP_ADDITIONAL_REQUIREMENTS: ${_PIP_ADDITIONAL_REQUIREMENTS:-}  # Additional Python dependencies if needed
+    PYTHONPATH: /opt/airflow/app
+  volumes:
+    - ./airflow/dags:/opt/airflow/dags
+    - ./airflow/logs:/opt/airflow/logs
+    - ./airflow/plugins:/opt/airflow/plugins
+    - ./fastapi/app:/opt/airflow/app # <- Mount FastAPI Code
+    - ./fastapi/credentials:/opt/airflow/credentials
+    - /var/run/docker.sock:/var/run/docker.sock
+  user: "${AIRFLOW_UID:-50000}:0"
+  depends_on:
+    redis:
+      condition: service_healthy
+    postgres:
+      condition: service_healthy
+
+services:
+  # 🚀 FastAPI microservice
+  fastapi:
+    build: ./fastapi
+    container_name: gooutside-fastapi
+    ports:
+      - "8000:8000"  # Accessible at http://localhost:8000
+    volumes:
+      - ./fastapi:/app
+      - ./fastapi/credentials:/app/credentials
+    environment:
+      - GOOGLE_APPLICATION_CREDENTIALS=/app/credentials/fastapi-gcs-key.json
+    restart: always
+
+  # 🚀 Spark
+  spark:
+    build: ./spark
+    container_name: gooutside-spark
+    volumes:
+    - ./spark:/opt/spark-app
+
+  # 🗄️ PostgreSQL database used by Airflow
+  postgres:
+    image: postgres:13
+    environment:
+      POSTGRES_USER: airflow
+      POSTGRES_PASSWORD: airflow
+      POSTGRES_DB: airflow
+    volumes:
+      - ./airflow/postgres-db-volume:/var/lib/postgresql/data  # Persist DB data
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "airflow"]
+      interval: 10s
+      retries: 5
+      start_period: 5s
+    restart: always
+
+  # 📡 Redis message broker for Celery
+  redis:
+    image: redis:7.2-bookworm
+    expose:
+      - 6379
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 30s
+      retries: 50
+      start_period: 30s
+    restart: always
+
+  # 🌐 Airflow Web UI
+  airflow-webserver:
+    <<: *airflow-common
+    command: webserver
+    ports:
+      - "8080:8080"  # Accessible at http://localhost:8080
+    healthcheck:
+      test: ["CMD", "curl", "--fail", "http://localhost:8080/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 30s
+    restart: always
+    depends_on:
+      airflow-init:
+        condition: service_completed_successfully
+
+  # ⏱️ Airflow Scheduler – triggers DAGs & tasks
+  airflow-scheduler:
+    <<: *airflow-common
+    command: scheduler
+    restart: always
+    depends_on:
+      airflow-init:
+        condition: service_completed_successfully
+
+  # ⚙️ Airflow Worker – executes tasks via Celery
+  airflow-worker:
+    <<: *airflow-common
+    command: celery worker
+    environment:
+      <<: *airflow-common-env
+      PYTHONPATH: /opt/airflow/app
+      DUMB_INIT_SETSID: "0"
+    restart: always
+    depends_on:
+      airflow-init:
+        condition: service_completed_successfully
+
+  # ⚡ Airflow Triggerer – required for async sensors
+  airflow-triggerer:
+    <<: *airflow-common
+    command: triggerer
+    restart: always
+    depends_on:
+      airflow-init:
+        condition: service_completed_successfully
+
+  # 🛠️ Initialization step for Airflow (DB + user)
+  airflow-init:
+    <<: *airflow-common
+    entrypoint: /bin/bash
+    command:
+      - -c
+      - |
+        mkdir -p /sources/logs /sources/dags /sources/plugins
+        chown -R "${AIRFLOW_UID}:0" /sources/{logs,dags,plugins}
+        exec /entrypoint airflow version
+    environment:
+      <<: *airflow-common-env
+      _AIRFLOW_DB_MIGRATE: 'true'
+      _AIRFLOW_WWW_USER_CREATE: 'true'
+      _AIRFLOW_WWW_USER_USERNAME: ${_AIRFLOW_WWW_USER_USERNAME:-airflow}
+      _AIRFLOW_WWW_USER_PASSWORD: ${_AIRFLOW_WWW_USER_PASSWORD:-airflow}
+      _PIP_ADDITIONAL_REQUIREMENTS: ''
+    user: "0:0"
+    volumes:
+      - ./airflow:/sources
+
+  # 🌸 Flower Web UI – monitors Celery workers
+  flower:
+    <<: *airflow-common
+    command: celery flower
+    ports:
+      - "5555:5555"  # Accessible at http://localhost:5555
+    healthcheck:
+      test: ["CMD", "curl", "--fail", "http://localhost:5555/"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 30s
+    restart: always
+    depends_on:
+      airflow-init:
+        condition: service_completed_successfully
+
+# 💾 Persistent volume for PostgreSQL
+volumes:
+  postgres-db-volume:
+
+
+
+

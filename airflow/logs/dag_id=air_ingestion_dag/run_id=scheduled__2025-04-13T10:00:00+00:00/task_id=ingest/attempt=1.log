@@ -1,0 +1,30 @@
+[2025-04-13T11:00:01.027+0000] {local_task_job_runner.py:123} INFO - ::group::Pre task execution logs
+[2025-04-13T11:00:01.042+0000] {taskinstance.py:2614} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: air_ingestion_dag.ingest scheduled__2025-04-13T10:00:00+00:00 [queued]>
+[2025-04-13T11:00:01.048+0000] {taskinstance.py:2614} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: air_ingestion_dag.ingest scheduled__2025-04-13T10:00:00+00:00 [queued]>
+[2025-04-13T11:00:01.052+0000] {taskinstance.py:2867} INFO - Starting attempt 1 of 2
+[2025-04-13T11:00:01.060+0000] {taskinstance.py:2890} INFO - Executing <Task(_PythonDecoratedOperator): ingest> on 2025-04-13 10:00:00+00:00
+[2025-04-13T11:00:01.064+0000] {warnings.py:112} WARNING - /home/***/.local/lib/python3.12/site-packages/***/task/task_runner/standard_task_runner.py:70: DeprecationWarning: This process (pid=455) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  pid = os.fork()
+
+[2025-04-13T11:00:01.066+0000] {standard_task_runner.py:72} INFO - Started process 459 to run task
+[2025-04-13T11:00:01.065+0000] {standard_task_runner.py:104} INFO - Running: ['***', 'tasks', 'run', 'air_ingestion_dag', 'ingest', 'scheduled__2025-04-13T10:00:00+00:00', '--job-id', '902', '--raw', '--subdir', 'DAGS_FOLDER/air_ingestion_dag.py', '--cfg-path', '/tmp/tmpno1my2g_']
+[2025-04-13T11:00:01.068+0000] {standard_task_runner.py:105} INFO - Job 902: Subtask ingest
+[2025-04-13T11:00:01.120+0000] {task_command.py:467} INFO - Running <TaskInstance: air_ingestion_dag.ingest scheduled__2025-04-13T10:00:00+00:00 [running]> on host caedfbfc7792
+[2025-04-13T11:00:01.210+0000] {taskinstance.py:3134} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='beni' AIRFLOW_CTX_DAG_ID='air_ingestion_dag' AIRFLOW_CTX_TASK_ID='ingest' AIRFLOW_CTX_EXECUTION_DATE='2025-04-13T10:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2025-04-13T10:00:00+00:00'
+[2025-04-13T11:00:01.213+0000] {taskinstance.py:732} INFO - ::endgroup::
+[2025-04-13T11:00:01.217+0000] {air_ingestion_dag.py:30} INFO - 📅 Fetching UBA data for MEZ day: 2025-04-13
+[2025-04-13T11:00:01.416+0000] {air_ingestion_dag.py:40} INFO - 📦 Parsed 4 entries
+[2025-04-13T11:00:01.417+0000] {air_ingestion_dag.py:43} INFO - 💾 Saving air entry for 2025-04-13T04:00:00+00:00
+[2025-04-13T11:00:01.791+0000] {logging_mixin.py:190} INFO - ✅ Saved: gs://gooutside-raw/air/bamberg/2025-04-13T0400.json
+[2025-04-13T11:00:01.792+0000] {air_ingestion_dag.py:43} INFO - 💾 Saving air entry for 2025-04-13T05:00:00+00:00
+[2025-04-13T11:00:02.159+0000] {logging_mixin.py:190} INFO - ✅ Saved: gs://gooutside-raw/air/bamberg/2025-04-13T0500.json
+[2025-04-13T11:00:02.159+0000] {air_ingestion_dag.py:43} INFO - 💾 Saving air entry for 2025-04-13T06:00:00+00:00
+[2025-04-13T11:00:02.515+0000] {logging_mixin.py:190} INFO - ✅ Saved: gs://gooutside-raw/air/bamberg/2025-04-13T0600.json
+[2025-04-13T11:00:02.515+0000] {air_ingestion_dag.py:43} INFO - 💾 Saving air entry for 2025-04-13T07:00:00+00:00
+[2025-04-13T11:00:02.871+0000] {logging_mixin.py:190} INFO - ✅ Saved: gs://gooutside-raw/air/bamberg/2025-04-13T0700.json
+[2025-04-13T11:00:02.872+0000] {python.py:240} INFO - Done. Returned value was: None
+[2025-04-13T11:00:02.881+0000] {taskinstance.py:341} INFO - ::group::Post task execution logs
+[2025-04-13T11:00:02.882+0000] {taskinstance.py:353} INFO - Marking task as SUCCESS. dag_id=air_ingestion_dag, task_id=ingest, run_id=scheduled__2025-04-13T10:00:00+00:00, execution_date=20250413T100000, start_date=20250413T110001, end_date=20250413T110002
+[2025-04-13T11:00:02.933+0000] {local_task_job_runner.py:266} INFO - Task exited with return code 0
+[2025-04-13T11:00:02.945+0000] {taskinstance.py:3901} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2025-04-13T11:00:02.946+0000] {local_task_job_runner.py:245} INFO - ::endgroup::
