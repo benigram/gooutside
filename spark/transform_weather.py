@@ -1,6 +1,13 @@
+import sys
+import os
+from datetime import datetime
 from pyspark.sql import SparkSession
 from pyspark.sql.functions import to_timestamp, to_date, col
-import os
+from google.cloud import storage
+
+# Argument: date string (e.g. "2024-05-01")
+date_str = sys.argv[1]
+date = datetime.strptime(date_str, "%Y-%m-%d").date()
 
 # Init Spark
 spark = SparkSession.builder \
@@ -13,12 +20,10 @@ os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "/app/credentials/fastapi-gcs-key
 # GCS paths
 raw_bucket = "gooutside-raw"
 processed_bucket = "gooutside-processed"
-
-# Test one Date
-#input_path = f"gs://{raw_bucket}/weather/bamberg/2024-01-01T*.json"
-
-input_path = f"gs://{raw_bucket}/weather/bamberg/*.json"
+input_path = f"gs://{raw_bucket}/weather/bamberg/{date}T*.json"
 output_path = f"gs://{processed_bucket}/parquet/weather/bamberg/"
+
+print(f"🔍 Reading weather files for {date}: {input_path}")
 
 # Read JSON from GCS
 df = spark.read.option("multiline", "true").json(input_path)
@@ -35,7 +40,12 @@ df = df.withColumn("date", to_date("timestamp"))
 df.printSchema()
 df.show(5, truncate=False)
 
-# Write as Parquet partitioned by date
-df.write.mode("overwrite").partitionBy("date").parquet(output_path)
+# Write as Parquet (only overwrite matching partition)
+spark.conf.set("spark.sql.sources.partitionOverwriteMode", "dynamic")
 
-print("✅ Finished converting weather data.")
+df.write \
+    .mode("overwrite") \
+    .partitionBy("date") \
+    .parquet(output_path)
+
+print(f"✅ Finished writing weather data for {date} to: {output_path}")

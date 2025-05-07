@@ -1,0 +1,29 @@
+name: gooutside
+version: '1.0'
+config-version: 2
+
+profile: gooutside  
+
+model-paths: ["models"]
+macro-paths: ["macros"]
+
+target-path: "target"
+clean-targets:
+  - "target"
+  - "dbt_modules"
+
+models:
+  gooutside:
+    +materialized: view 
+
+    staging:
+      +schema: staging
+      +materialized: view
+
+    core:
+      +schema: core
+      +materialized: table
+
+    marts:
+      +schema: marts
+      +materialized: table

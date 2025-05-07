@@ -1,15 +1,32 @@
 # macOS system files
 .DS_Store
 
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.env
+*.venv
+
 # Airflow
 airflow/logs/
 airflow/plugins/
 airflow/__pycache__/
 airflow/postgres-db-volume/
 
-# Python
-__pycache__/
-*.pyc
-
-# Optional: Credentials
+# Credentials & Secrets
 fastapi/credentials/
+*.key.json
+*.env
+.env*
+
+# dbt
+target/
+dbt_packages/
+logs/
+dbt_modules/
+
+# VSCode & IDEs
+.vscode/
+.idea/

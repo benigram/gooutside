@@ -3,6 +3,7 @@ from airflow.operators.bash import BashOperator
 from datetime import datetime, timedelta
 import logging
 from ingestion.pollen import fetch_pollen_data, parse_pollen_data, save_pollen_entry_to_gcs
+from airflow.operators.trigger_dagrun import TriggerDagRunOperator
 
 default_args = {
     "owner": "beni",
@@ -11,18 +12,20 @@ default_args = {
 }
 
 @dag(
-    dag_id="pollen_ingestion_dag",
-    schedule_interval="0 8 * * *", # 8 am UTC , 9 am in winter, 10 am Sommer
+    dag_id="pollen_pipeline_dag",
+    schedule_interval="0 6 * * *", # 8 am UTC , 7 am in winter, 8 am Sommer
     start_date=datetime(2025, 4, 4),
     catchup=False, #no historical data
     default_args=default_args,
     tags=["pollen"],
-    description="Ingests daily pollen data from DWD and saves to GCS",
+    description="Ingests daily pollen data and transforms to Parquet in one DAG",
 )
-def pollen_dag():
+def pollen_pipeline():
+
     @task()
-    def ingest():
+    def ingest(ds=None, **kwargs):
         log = logging.getLogger(__name__)
+        log.info(f"📥 Start Ingestion for {ds}")
 
         raw = fetch_pollen_data()
         parsed = parse_pollen_data(raw, partregion_id=123)
@@ -41,7 +44,14 @@ def pollen_dag():
             save_pollen_entry_to_gcs(entry)
             log.info(f"✅ Saved entry to GCS for {entry['date']}")
 
+    transform = BashOperator(
+        task_id='transform_to_parquet',
+        bash_command=(
+            'docker exec gooutside-spark '
+            'spark-submit /opt/spark-app/transform_pollen.py {{ next_ds }}'
+        )
+    )
 
-    ingest()
+    ingest() >> transform
 
-pollen_dag = pollen_dag()
+pollen_pipeline = pollen_pipeline()

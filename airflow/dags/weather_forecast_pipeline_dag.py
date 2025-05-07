@@ -1,4 +1,5 @@
 from airflow.decorators import dag, task
+from airflow.operators.bash import BashOperator
 from airflow.utils.dates import days_ago
 from datetime import datetime, timedelta, timezone
 from ingestion.weather_forecast import (
@@ -17,13 +18,13 @@ default_args = {
 }
 
 @dag(
-    dag_id="weather_forecast_ingestion_dag",
+    dag_id="weather_forecast_pipeline_dag",
     start_date=datetime(2025, 4, 10, 8),
     schedule_interval="@hourly",
     catchup=False,
     default_args=default_args,
     tags=["weather", "forecast"],
-    description="Ingests and maintains up-to-date weather forecast data from Bright Sky and saves to GCS",
+    description="Ingests and maintains up-to-date weather forecast data from Bright Sky and saves to GCS and Parquet",
 )
 def forecast_dag():
     @task()
@@ -60,8 +61,17 @@ def forecast_dag():
     def clean():
        now = datetime.now(timezone.utc)
        delete_old_forecasts(bucket_name="gooutside-raw", city="bamberg", threshold_dt=now)
+    
+    transform = BashOperator(
+        task_id="transform_forecast_to_parquet",
+        bash_command=(
+            'docker exec gooutside-spark '
+            'spark-submit /opt/spark-app/transform_weather_forecast.py'
+        )
+    )
 
-    ingest() >> clean()
+    ingest() >> clean() >> transform
 
 forecast_dag = forecast_dag()
+
 
