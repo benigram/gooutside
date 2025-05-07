@@ -1,0 +1,13 @@
+gooutside:
+  target: dev
+  outputs:
+    dev:
+      type: bigquery
+      method: service-account
+      project: gooutside-dev
+      dataset: gooutside
+      threads: 4
+      timeout_seconds: 300
+      location: europe-west3  # Frankfurt
+      keyfile: /Users/beni/projects/gooutside/fastapi/credentials/fastapi-gcs-key.json
+      priority: interactive

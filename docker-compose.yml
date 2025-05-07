@@ -26,6 +26,7 @@ x-airflow-common:
     - ./airflow/plugins:/opt/airflow/plugins
     - ./fastapi/app:/opt/airflow/app # <- Mount FastAPI Code
     - ./fastapi/credentials:/opt/airflow/credentials
+    - ./spark:/opt/airflow/scripts
     - /var/run/docker.sock:/var/run/docker.sock
   user: "${AIRFLOW_UID:-50000}:0"
   depends_on:
@@ -54,6 +55,10 @@ services:
     container_name: gooutside-spark
     volumes:
     - ./spark:/opt/spark-app
+    - ./fastapi/credentials:/opt/credentials
+    environment:
+    - GOOGLE_APPLICATION_CREDENTIALS=/opt/credentials/fastapi-gcs-key.json
+
 
   # 🗄️ PostgreSQL database used by Airflow
   postgres:
@@ -148,8 +153,8 @@ services:
       _AIRFLOW_WWW_USER_CREATE: 'true'
       _AIRFLOW_WWW_USER_USERNAME: ${_AIRFLOW_WWW_USER_USERNAME:-airflow}
       _AIRFLOW_WWW_USER_PASSWORD: ${_AIRFLOW_WWW_USER_PASSWORD:-airflow}
-      _PIP_ADDITIONAL_REQUIREMENTS: ''
-    user: "0:0"
+      _PIP_ADDITIONAL_REQUIREMENTS: ${_PIP_ADDITIONAL_REQUIREMENTS:-}
+    user: "${AIRFLOW_UID:-50000}:0"
     volumes:
       - ./airflow:/sources
 

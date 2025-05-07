@@ -2,6 +2,7 @@ from airflow.decorators import dag, task
 from airflow.utils.dates import days_ago
 from datetime import datetime, timedelta, timezone
 from ingestion.weather import fetch_weather_data, parse_weather_data, save_weather_entry_to_gcs
+from airflow.operators.bash import BashOperator
 import logging
 
 default_args = {
@@ -17,15 +18,14 @@ default_args = {
     catchup=False,
     default_args=default_args,
     tags=["weather", "retro"],
-    description="Reloads hourly weather data for yesterday to capture late changes",
+    description="Reloads hourly weather data for yesterday to capture late changes and updates Parquet",
 )
-
 def update_weather_dag():
     @task()
     def update_yesterday():
         log = logging.getLogger(__name__)
 
-         # Reload data for the previous day (UTC)
+        # Reload data for the previous day (UTC)
         yesterday = (datetime.now(timezone.utc) - timedelta(days=1)).date()
         date_str = yesterday.isoformat()
 
@@ -39,6 +39,16 @@ def update_weather_dag():
             log.info(f"💾 Overwriting entry for {ts}")
             save_weather_entry_to_gcs(entry)  # automatically overwrites
 
-    update_yesterday()
+        return date_str
+
+    transform = BashOperator(
+        task_id="transform_yesterday_to_parquet",
+        bash_command=(
+            'docker exec gooutside-spark '
+            'spark-submit /opt/spark-app/transform_weather.py {{ ti.xcom_pull(task_ids="update_yesterday") }}'
+        ),
+    )
+
+    update_yesterday() >> transform
 
 update_weather_dag = update_weather_dag()

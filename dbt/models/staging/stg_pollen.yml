@@ -1,0 +1,29 @@
+version: 2
+
+models:
+  - name: stg_pollen
+    description: >
+      Staging model for daily pollen forecast data in the Bamberg region. 
+      Extracted from UBA and transformed into a flat schema.
+    columns:
+      - name: date
+        description: Forecast date
+        tests:
+          - not_null
+          - unique
+
+      - name: region
+        description: Name of the region (e.g., Bayern Nord)
+
+      - name: city
+        description: Forecasted city (currently only Bamberg)
+
+      - name: pollen_type
+        description: Type of pollen (e.g., Birke, Erle, Gräser)
+
+      - name: level
+        description: Forecasted pollen concentration level (e.g., none, low, medium, high)
+
+      - name: ingestion_timestamp
+        description: Timestamp when the data was ingested into GCS
+
