@@ -38,7 +38,7 @@
 
 ```bash
 # Clone the repo
-git clone https://github.com/yourname/gooutside.git
+git clone https://github.com/benigram/gooutside.git
 cd gooutside
 
 # Start Airflow & other services
