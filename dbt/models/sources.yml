@@ -5,3 +5,6 @@ sources:
     schema: gooutside_raw
     tables:
       - name: pollen_bayern_nord
+      - name: air_bamberg
+      - name: weather_bamberg
+      - name: weather_forecast_bamberg

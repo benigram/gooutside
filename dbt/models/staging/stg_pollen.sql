@@ -1,3 +1,7 @@
+{{ config(
+    tags=['pollen']
+) }}
+
 with raw as (
     select *
     from {{ source('raw', 'pollen_bayern_nord') }}

@@ -26,6 +26,7 @@ target/
 dbt_packages/
 logs/
 dbt_modules/
+.user.ymlid
 
 # VSCode & IDEs
 .vscode/

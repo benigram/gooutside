@@ -9,6 +9,7 @@ from google.cloud import storage
 # Arguments
 execution_date_str = sys.argv[1]  # "2025-05-05"
 execution_date = datetime.strptime(execution_date_str, "%Y-%m-%d").date()
+date_folder = execution_date.isoformat()
 
 # Init Spark
 spark = SparkSession.builder \
@@ -22,9 +23,9 @@ os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "/opt/credentials/fastapi-gcs-key
 raw_bucket = "gooutside-raw"
 processed_bucket = "gooutside-processed"
 
-input_filename = f"pollen/bayern_nord/{execution_date}.json"
+input_filename = f"pollen/bayern_nord/{date_folder}.json"
 input_path = f"gs://{raw_bucket}/{input_filename}"
-output_path = f"gs://{processed_bucket}/flat/pollen_bayern_nord/"
+output_path = f"gs://{processed_bucket}/flat/pollen_bayern_nord/{date_folder}/"
 
 # Wait for file to appear in GCS (max 60 seconds)
 print(f"🔍 Looking for GCS file: {input_filename}")
@@ -64,7 +65,8 @@ df = df.withColumn("Esche", col("forecast").getItem("Esche")) \
 # Add static date column for filtering in BigQuery
 df = df.withColumn("date", lit(execution_date))
 
-# Write Parquet file (no partitioning)
-df.write.mode("append").parquet(output_path)
+# Write Parquet file → overwrite day partition
+print(f"📝 Writing Parquet to: {output_path}")
+df.write.mode("overwrite").parquet(output_path)
 
-print(f"✅ Successfully wrote Parquet with date column to: {output_path}")
+print(f"✅ Successfully wrote Parquet for date {execution_date} to: {output_path}")

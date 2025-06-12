@@ -1,6 +1,17 @@
-from pyspark.sql import SparkSession
-from pyspark.sql.functions import to_timestamp, to_date, col
+import sys
 import os
+from datetime import datetime, timedelta, timezone
+from pyspark.sql.types import DateType
+from pyspark.sql import SparkSession
+from pyspark.sql.functions import to_date, col, date_format, lit
+from astral import LocationInfo
+from astral.sun import sun
+import pytz
+
+# Argument: date string (e.g. "2025-05-12")
+start_date_str = sys.argv[1]
+start_date = datetime.strptime(start_date_str, "%Y-%m-%d").date()
+end_date = start_date + timedelta(days=8)
 
 # Init Spark
 spark = SparkSession.builder \
@@ -10,40 +21,54 @@ spark = SparkSession.builder \
 # Auth for GCS
 os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "/app/credentials/fastapi-gcs-key.json"
 
-# GCS paths
+# Paths
 raw_bucket = "gooutside-raw"
 processed_bucket = "gooutside-processed"
-input_path = f"gs://{raw_bucket}/weather_forecast/bamberg/*.json"
-output_path = f"gs://{processed_bucket}/parquet/weather_forecast/bamberg/"
 
-print(f"🔍 Reading all forecast files: {input_path}")
+print(f"🔍 Starting forecast transform for range: {start_date} → {end_date}")
 
+for single_date in (start_date + timedelta(n) for n in range((end_date - start_date).days + 1)):
+    date_str = single_date.isoformat()
+    input_path = f"gs://{raw_bucket}/weather_forecast/bamberg/{date_str}T*.json"
+    output_path = f"gs://{processed_bucket}/flat/weather_forecast_bamberg/{date_str}/"
 
-# Read JSON from GCS
-df = spark.read.option("multiline", "true").json(input_path)
+    print(f"📥 Processing {input_path}")
 
-# Check schema
-df.printSchema()
-df.show(5, truncate=False)
+    try:
+        df = spark.read.option("multiline", "true").json(input_path)
 
-# Transform timestamp
-df = df.withColumn("timestamp", to_timestamp("timestamp"))
-df = df.withColumn("date", to_date("timestamp"))
+        # Cast numeric fields
+        df = df.withColumn("pressure_ml", col("pressure_ml").cast("double")) \
+               .withColumn("relative_humidity", col("relative_humidity").cast("double")) \
+               .withColumn("wind_gust_direction", col("wind_gust_direction").cast("double")) \
+               .withColumn("visibility", col("visibility").cast("double")) \
+               .withColumn("wind_direction", col("wind_direction").cast("double"))
 
-# Check schema
-df.printSchema()
-df.show(5, truncate=False)
+        # Transform timestamp
+        df = df.withColumn("timestamp", date_format("timestamp", "yyyy-MM-dd HH:mm:ss"))
+        df = df.withColumn("date", lit(single_date).cast(DateType()))
 
-# Optional: remove any unused fields here if needed
-# df = df.drop("some_unused_field")
+        # sun raise and sun down
+        city_info = LocationInfo(name="Bamberg", region="Germany", timezone="Europe/Berlin", latitude=49.8917, longitude=10.8918)
+        sun_data = sun(city_info.observer, date=single_date, tzinfo=pytz.timezone(city_info.timezone))
+        sunrise_str = sun_data['sunrise'].strftime("%H:%M")
+        sunset_str = sun_data['sunset'].strftime("%H:%M")
 
-# Ensure only matching partitions are overwritten
-spark.conf.set("spark.sql.sources.partitionOverwriteMode", "dynamic")
+        # new column
+        df = df.withColumn("sunrise", lit(sunrise_str))
+        df = df.withColumn("sunset", lit(sunset_str))
 
-# Write to Parquet (partitioned by date)
-df.write \
-    .mode("overwrite") \
-    .partitionBy("date") \
-    .parquet(output_path)
+        # Debug preview
+        df.printSchema()
+        df.show(5, truncate=False)
 
-print("✅ Finished converting weather forecast data.")
+        # Write Parquet → overwrite per day
+        print(f"📝 Writing Parquet to {output_path}")
+        df.write.mode("overwrite").parquet(output_path)
+
+        print(f"✅ Finished {date_str}")
+
+    except Exception as e:
+        print(f"⚠️ No data for {date_str} or error occurred: {e}")
+
+print(f"🎉 Finished all forecast dates {start_date} → {end_date}")

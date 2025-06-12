@@ -6,7 +6,7 @@ spark = SparkSession.builder \
     .getOrCreate()
 
 # Read Parquet data
-df = spark.read.parquet("gs://gooutside-processed/flat/pollen_bayern_nord/part-00000-016c7abb-3b89-4a66-bb9f-1f99be90dddc-c000.snappy.parquet")
+df = spark.read.parquet("gs://gooutside-processed/flat/weather_forecast_bamberg/2025-05-23/part-00000-7d16f81b-49d8-4bc2-a2db-400a28dbeafe-c000.snappy.parquet")
 
 # Show schema and first rows
 df.printSchema()
