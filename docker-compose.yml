@@ -3,7 +3,7 @@ version: '3.8'
 # 🔁 Shared configuration for all Airflow services (webserver, scheduler, worker, etc.)
 x-airflow-common:
   &airflow-common
-  image: ${AIRFLOW_IMAGE_NAME:-apache/airflow:2.10.5}  # Use default Airflow image (version configurable via .env)
+  build: .
   environment:
     &airflow-common-env
     AIRFLOW__CORE__EXECUTOR: CeleryExecutor  # Use CeleryExecutor for distributed task execution
@@ -21,6 +21,7 @@ x-airflow-common:
     _PIP_ADDITIONAL_REQUIREMENTS: ${_PIP_ADDITIONAL_REQUIREMENTS:-}  # Additional Python dependencies if needed
     PYTHONPATH: /opt/airflow/app
   volumes:
+    - ./dbt:/opt/dbt  # Mount dbt
     - ./airflow/dags:/opt/airflow/dags
     - ./airflow/logs:/opt/airflow/logs
     - ./airflow/plugins:/opt/airflow/plugins
@@ -49,6 +50,20 @@ services:
       - GOOGLE_APPLICATION_CREDENTIALS=/app/credentials/fastapi-gcs-key.json
     restart: always
 
+
+  # 🖥️ Streamlit
+  streamlit:
+    build:
+      context: ./streamlit
+    ports:
+      - "8501:8501"
+    volumes:
+      - ./streamlit:/app
+      - ./fastapi/credentials:/app/credentials
+    environment:
+      - GOOGLE_APPLICATION_CREDENTIALS=/app/credentials/fastapi-gcs-key.json
+
+  
   # 🚀 Spark
   spark:
     build: ./spark

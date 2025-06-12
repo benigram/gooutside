@@ -1,3 +1,7 @@
+{{ config(
+    tags=['pollen']
+) }}
+
 with stg as (
     select *
     from {{ ref('stg_pollen') }}

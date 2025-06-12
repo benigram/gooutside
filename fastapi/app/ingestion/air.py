@@ -5,6 +5,7 @@ import json
 import os
 from dateutil import parser
 import pytz
+import re
 
 def fetch_air_data(station_id: int = 443, date: str = None):
     """
@@ -30,9 +31,9 @@ def fetch_air_data(station_id: int = 443, date: str = None):
     params = {
         "station": station_id,
         "date_from": date,
-        "time_from": 6,      # Start at 7 AM (MEZ) = 6 AM (UTC)
+        "time_from": 1,      # Start at 1 AM (MEZ)
         "date_to": date,
-        "time_to": 23,       # End at 22 PM (MEZ) = 21 AM (UTC)
+        "time_to": 23,       # End at 23 PM (MEZ)
         "index": "code",     # Request the numeric index (0–5)
         "lang": "en"         # Use English (affects some metadata)
     }
@@ -88,7 +89,7 @@ def parse_uba_data(api_response: dict, station_id: int, station_code: str, city:
 
         hour_local = dt_local.hour
 
-        if 6 <= hour_local <= 23:
+        if 1 <= hour_local <= 23:
 
             aqi = values[1]
             components_raw = values[3:]
@@ -150,4 +151,56 @@ def save_air_entry_to_gcs(entry: dict, bucket_name: str = "gooutside-raw"):
     print(f"✅ Saved: gs://{bucket_name}/{filename}")
 
 
+def delete_old_air(bucket_name: str, city: str, threshold_dt: datetime):
+    """
+    Deletes all air quality entries from GCS older than the UTC date of threshold_dt.
+    Example filename: air/bamberg/2025-04-08T1600.json
+    """
+    os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "credentials/fastapi-gcs-key.json"
 
+    client = storage.Client()
+    bucket = client.bucket(bucket_name)
+    prefix = f"air/{city.lower()}/"
+
+    blobs = list(bucket.list_blobs(prefix=prefix))
+    threshold_date = threshold_dt.date()
+
+    for blob in blobs:
+        filename = blob.name.split("/")[-1].replace(".json", "")  # e.g., "2025-04-08T1600"
+        try:
+            ts = parser.isoparse(filename[:13] + ":00").replace(tzinfo=timezone.utc)
+            if ts.date() < threshold_date:
+                print(f"🗑️ Deleting outdated air data: {blob.name}")
+                blob.delete()
+        except Exception as e:
+            print(f"⚠️ Could not parse/delete {blob.name}: {e}")
+
+
+
+def delete_old_parquet_air(bucket_name: str, city: str, threshold_date: datetime.date):
+    """
+    Deletes all air Parquet files from GCS that are older than the given date.
+    Example path: flat/air_bamberg/2025-04-08/part-*.parquet
+    """
+    os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "credentials/fastapi-gcs-key.json"
+
+    client = storage.Client()
+    bucket = client.bucket(bucket_name)
+
+    prefix = f"flat/air_{city.lower()}/"
+    blobs = list(bucket.list_blobs(prefix=prefix))
+
+    for blob in blobs:
+        parts = blob.name.split("/")
+
+        # Ensure parts[2] exists and looks like a date (YYYY-MM-DD)
+        if len(parts) < 3 or not re.match(r"\d{4}-\d{2}-\d{2}", parts[2]):
+            continue  # 👈 Skip entries like flat/air_bamberg/ or incomplete paths
+
+        try:
+            folder_date = datetime.strptime(parts[2], "%Y-%m-%d").date()
+            if folder_date < threshold_date:
+                print(f"🗑️ Deleting outdated air parquet file: {blob.name}")
+                blob.delete()
+        except Exception as e:
+            print(f"⚠️ Could not parse/delete {blob.name}: {e}")

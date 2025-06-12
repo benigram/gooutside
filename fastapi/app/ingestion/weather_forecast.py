@@ -35,33 +35,31 @@ def fetch_weather_data(lat: float = 49.89, lon: float = 10.89, date: str = None,
 
 def parse_weather_forecast(api_response: dict, city: str = "bamberg"):
     """
-    Parses Bright Sky forecast data. Filters for hours 6–20 UTC.
+    Parses Bright Sky forecast data.
     """
     parsed_entries = []
     raw_data = api_response.get("weather", [])
 
     for entry in raw_data:
         timestamp = entry.get("timestamp")
-        hour = int(timestamp[11:13])
 
-        if 6 <= hour <= 20:
-            parsed_entries.append({
-                "timestamp": timestamp,
-                "city": city,
-                "condition": entry.get("condition"),
-                "temperature": entry.get("temperature"),
-                "dew_point": entry.get("dew_point"),
-                "pressure_ml": entry.get("pressure_ml"),
-                "relative_humidity": entry.get("relative_humidity"),
-                "visibility": entry.get("visibility"),
-                "precipitation": entry.get("precipitation"),
-                "solar": entry.get("solar"),
-                "sunshine": entry.get("sunshine"),
-                "wind_speed": entry.get("wind_speed"),
-                "wind_direction": entry.get("wind_direction"),
-                "wind_gust_direction": entry.get("wind_gust_direction"),
-                "wind_gust_speed": entry.get("wind_gust_speed")
-            })
+        parsed_entries.append({
+            "timestamp": timestamp,
+            "city": city,
+            "condition": entry.get("condition"),
+            "temperature": entry.get("temperature"),
+            "dew_point": entry.get("dew_point"),
+            "pressure_ml": entry.get("pressure_ml"),
+            "relative_humidity": entry.get("relative_humidity"),
+            "visibility": entry.get("visibility"),
+            "precipitation": entry.get("precipitation"),
+            "solar": entry.get("solar"),
+            "sunshine": entry.get("sunshine"),
+            "wind_speed": entry.get("wind_speed"),
+            "wind_direction": entry.get("wind_direction"),
+            "wind_gust_direction": entry.get("wind_gust_direction"),
+            "wind_gust_speed": entry.get("wind_gust_speed")
+        })
 
     return parsed_entries
 
@@ -88,7 +86,6 @@ def save_weather_forecast_to_gcs(entry: dict, bucket_name: str = "gooutside-raw"
 
     print(f"🌤️ Saved forecast: gs://{bucket_name}/{filename}")
 
-
 def delete_old_forecasts(bucket_name: str, city: str, threshold_dt: datetime):
     """
     Deletes all forecast entries from GCS older than the given UTC threshold.
@@ -105,10 +102,39 @@ def delete_old_forecasts(bucket_name: str, city: str, threshold_dt: datetime):
     for blob in blobs:
         filename = blob.name.split("/")[-1].replace(".json", "")  # "2025-04-08T1600"
         try:
-            # Force timezone-aware datetime
             ts = parser.isoparse(filename[:13] + ":00").replace(tzinfo=timezone.utc)
-            if ts < threshold_dt:
+
+            # just delete when before actual hour
+            cutoff = threshold_dt.replace(minute=0, second=0, microsecond=0)
+            if ts < cutoff:
                 print(f"🗑️ Deleting outdated forecast: {blob.name}")
+                blob.delete()
+        except Exception as e:
+            print(f"⚠️ Could not parse/delete {blob.name}: {e}")
+
+
+def delete_old_parquet_folders(bucket_name: str, city: str, threshold_date: datetime.date):
+    """
+    Deletes all forecast entries from GCS older than the given UTC threshold.
+    Example filename: weather_forecast/bamberg/2025-04-08T1600.json
+    """
+    os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "credentials/fastapi-gcs-key.json"
+
+    client = storage.Client()
+    bucket = client.bucket(bucket_name)
+
+    prefix = f"flat/weather_forecast_bamberg/"
+    blobs = list(bucket.list_blobs(prefix=prefix))
+
+    for blob in blobs:
+        parts = blob.name.split("/")
+        if len(parts) < 3:
+            continue
+
+        try:
+            folder_date = datetime.strptime(parts[2], "%Y-%m-%d").date()
+            if folder_date < threshold_date:
+                print(f"🗑️ Deleting outdated parquet file: {blob.name}")
                 blob.delete()
         except Exception as e:
             print(f"⚠️ Could not parse/delete {blob.name}: {e}")

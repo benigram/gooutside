@@ -1,12 +1,15 @@
 from airflow.decorators import dag, task
 from airflow.operators.bash import BashOperator
+from airflow.providers.google.cloud.operators.bigquery import BigQueryInsertJobOperator
 from airflow.utils.dates import days_ago
 from datetime import datetime, timedelta, timezone
+from airflow.utils.trigger_rule import TriggerRule
 from ingestion.weather_forecast import (
     fetch_weather_data,
     parse_weather_forecast,
     save_weather_forecast_to_gcs,
     delete_old_forecasts,
+    delete_old_parquet_folders,
 )
 import logging
 from dateutil import parser
@@ -28,7 +31,7 @@ default_args = {
 )
 def forecast_dag():
     @task()
-    def ingest():
+    def ingest(**context):
         log = logging.getLogger(__name__)
 
         now_utc = datetime.now(timezone.utc).date()
@@ -44,7 +47,7 @@ def forecast_dag():
         now_utc_dt = datetime.now(timezone.utc)
         filtered = [
             entry for entry in parsed
-            if parser.isoparse(entry["timestamp"]) >= now_utc_dt.replace(minute=0, second=0, microsecond=0) + timedelta(hours=1)
+            if parser.isoparse(entry["timestamp"]) >= now_utc_dt.replace(minute=0, second=0, microsecond=0)
         ]
 
         if not filtered:
@@ -59,18 +62,68 @@ def forecast_dag():
 
     @task()
     def clean():
-       now = datetime.now(timezone.utc)
-       delete_old_forecasts(bucket_name="gooutside-raw", city="bamberg", threshold_dt=now)
+        now = datetime.now(timezone.utc)
+        delete_old_forecasts(bucket_name="gooutside-raw", city="bamberg", threshold_dt=now)
+        delete_old_parquet_folders(bucket_name="gooutside-processed", city="bamberg", threshold_date=now.date())
+
     
+
     transform = BashOperator(
         task_id="transform_forecast_to_parquet",
         bash_command=(
             'docker exec gooutside-spark '
-            'spark-submit /opt/spark-app/transform_weather_forecast.py'
+            'spark-submit /opt/spark-app/transform_weather_forecast.py {{ ds }}'
         )
     )
 
-    ingest() >> clean() >> transform
+    delete_existing_data = BigQueryInsertJobOperator(
+        task_id="delete_existing_weather_for_day",
+        configuration={
+            "query": {
+                "query": """
+                    DELETE FROM `gooutside-dev.gooutside_raw.weather_forecast_bamberg`
+                    WHERE TRUE
+                """,
+                "useLegacySql": False,
+            }
+        },
+        gcp_conn_id="google_cloud_default",
+        trigger_rule=TriggerRule.ALL_DONE
+    )
+
+
+    # Forecast Load
+    load_tasks = []
+    for n in range(8):
+        forecast_date = (datetime.utcnow().date() + timedelta(days=n)).isoformat()
+
+        load_task = BigQueryInsertJobOperator(
+            task_id=f"bq_load_forecast_{forecast_date}",
+            configuration={
+                "load": {
+                    "sourceUris": [
+                        f"gs://gooutside-processed/flat/weather_forecast_bamberg/{forecast_date}/part-*.parquet"
+                    ],
+                    "destinationTable": {
+                        "projectId": "gooutside-dev",
+                        "datasetId": "gooutside_raw",
+                        "tableId": "weather_forecast_bamberg"
+                    },
+                    "sourceFormat": "PARQUET",
+                    "writeDisposition": "WRITE_APPEND"
+                }
+            },
+            gcp_conn_id="google_cloud_default"
+        )
+        load_tasks.append(load_task)
+    
+    dbt_run = BashOperator(
+        task_id="dbt_run_weather",
+        bash_command="cd /opt/dbt && dbt run --select tag:weather",
+        do_xcom_push=True
+    )
+
+    ingest() >> clean() >> transform >> delete_existing_data >> load_tasks >> dbt_run
 
 forecast_dag = forecast_dag()
 

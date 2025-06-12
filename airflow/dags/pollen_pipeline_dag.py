@@ -1,8 +1,8 @@
 from airflow.decorators import dag, task
 from airflow.operators.bash import BashOperator
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 import logging
-from ingestion.pollen import fetch_pollen_data, parse_pollen_data, save_pollen_entry_to_gcs
+from ingestion.pollen import fetch_pollen_data, parse_pollen_data, save_pollen_entry_to_gcs, delete_old_pollen_forecasts, delete_old_pollen_parquet_folders
 from airflow.operators.trigger_dagrun import TriggerDagRunOperator
 
 default_args = {
@@ -43,6 +43,12 @@ def pollen_pipeline():
 
             save_pollen_entry_to_gcs(entry)
             log.info(f"✅ Saved entry to GCS for {entry['date']}")
+    
+    @task()
+    def clean():
+        now = datetime.now(timezone.utc)
+        delete_old_pollen_forecasts(bucket_name="gooutside-raw", region="bayern_nord", threshold_dt=now)
+        delete_old_pollen_parquet_folders(bucket_name="gooutside-processed", region="bayern_nord", threshold_date=now.date())
 
     transform = BashOperator(
         task_id='transform_to_parquet',
@@ -52,6 +58,13 @@ def pollen_pipeline():
         )
     )
 
-    ingest() >> transform
+    dbt_run = BashOperator(
+        task_id="dbt_run_pollen",
+        bash_command="cd /opt/dbt && dbt run --select tag:pollen",
+        do_xcom_push=True
+    )
+
+
+    ingest() >> clean() >> transform >> dbt_run
 
 pollen_pipeline = pollen_pipeline()
