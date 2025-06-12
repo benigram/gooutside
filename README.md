@@ -9,7 +9,6 @@
 - **Automated ingestion** from public APIs (DWD, Umweltbundesamt, BrightSky) using Python & `requests`
 - **Data lake architecture**: JSON + Parquet in Google Cloud Storage (GCS)
 - **Apache Spark** for fast batch transformation from raw to columnar formats
-- **Machine learning pipeline** to forecast air quality and pollen trends
 - **Data modeling** with `dbt` into clean, analytics-ready BigQuery tables
 - **Airflow DAGs** to orchestrate ingestion, transformation & modeling
 - **Streamlit dashboard** for interactive environmental insights
@@ -29,7 +28,6 @@
 | **Google Cloud Storage**| Raw + processed storage (data lake)           |
 | **BigQuery**            | Cloud data warehouse                          |
 | **dbt**                 | SQL modeling (staging, DWH, OBT)              |
-| **scikit-learn / XGBoost** | ML model training & forecasting            |
 | **Streamlit**           | Dashboard frontend                            |
 
 ## ⚙️ Project Architecture
@@ -48,15 +46,16 @@ docker compose up airflow-init
 docker compose up
 ```
 
-## ✨ Project Status
+## 🌤️ Final result
+![Final result](final_result.png)
 
-| Component                | Status          |
-|--------------------------|-----------------|
-| Planning & Setup         | ✅ done          |
-| API Integration          | ✅ done (via `requests`) |
-| Spark Transformation     | ✅ done          |
-| Airflow DAGs             | ⏳ in progress   |
-| BigQuery & dbt Models    | ⏳ in progress   |
-| Streamlit Dashboard      | ⏳ in progress   |
-| Machine Learning Pipeline| 🔜 Planned       |
-| Deployment & Hosting     | 🔜 Planned       |
+
+## ✨ Ideas for Further Work
+While the current pipeline is fully functional, there are several opportunities to extend and improve the project:
+- Set up CI/CD integration
+- Add monitoring and alerts
+- Integrate machine learning models
+- Expand the Streamlit dashboard
+- Backfill historical data
+- Implement data quality checks
+- Add tests to dbt models
